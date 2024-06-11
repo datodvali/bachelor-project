@@ -9,32 +9,44 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigidBody;
     private Animator animator;
 
+    private bool isMoving;
     public float walkSpeed = 5f; 
-    public float runSpeed = 8f;
+    public float runSpeed = 12f;
+    private bool facingRight = true;
 
     Vector2 moveInput;
 
-    private bool _isMoving;
-
     public bool IsMoving {
         get {
-            return _isMoving;
+            return isMoving;
         }
         private set {
-            _isMoving = value;
-            animator.SetBool("isMoving", value);
+            isMoving = value;
+            animator.SetBool(AnimationNames.isMoving, value);
         }
     }
 
-        private bool _isRunning;
+    private bool isRunning;
 
     public bool IsRunning {
         get {
-            return _isRunning;
+            return isRunning;
         }
         private set {
-            _isRunning = value;
-            animator.SetBool("isRunning", value);
+            isRunning = value;
+            animator.SetBool(AnimationNames.isRunning, value);
+        }
+    }
+
+    public bool FacingRight {
+        get {
+            return facingRight;
+        }
+        private set {
+            if (facingRight != value) {
+                transform.localScale *= new Vector2(-1, 1);
+            }
+            facingRight = value;
         }
     }
 
@@ -49,17 +61,17 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        rigidBody.velocity = new Vector2(moveInput.x * (IsRunning ? runSpeed : walkSpeed), rigidBody.velocity.y);
     }
 
-    // void FixedUpdate() {
-    //     rigidBody.velocity = new Vector2(moveInput.x * walkSpeed, rigidBody.velocity.y);
-    // }
+    void FixedUpdate() {
+        rigidBody.velocity = new Vector2(moveInput.x * (isRunning ? runSpeed : walkSpeed), rigidBody.velocity.y);
+        animator.SetFloat(AnimationNames.yVelocity, rigidBody.velocity.y);
+    }
 
     public void OnMove(InputAction.CallbackContext context) {
         moveInput = context.ReadValue<Vector2>();
-
         IsMoving = moveInput != Vector2.zero;
+        changeDirection(moveInput);
     }
 
     public void OnRun(InputAction.CallbackContext context) {
@@ -67,6 +79,14 @@ public class PlayerController : MonoBehaviour
             IsRunning = true;
         } else if (context.canceled) {
             IsRunning = false;            
+        }
+    }
+
+    private void changeDirection(Vector2 moveInput) {
+        if (moveInput.x > 0 && !facingRight) {
+            FacingRight = true;
+        } else if (moveInput.x < 0 && facingRight) {
+            FacingRight = false;
         }
     }
 }
