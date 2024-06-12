@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(TouchDirections))]
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
     private Animator animator;
+    private TouchDirections touchDirections;
 
     private bool isMoving;
     public float walkSpeed = 5f; 
     public float runSpeed = 12f;
+    public float jumpInitialSpeed = 10f;
     private bool facingRight = true;
 
     Vector2 moveInput;
@@ -53,14 +55,7 @@ public class PlayerController : MonoBehaviour
     void Awake() {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-    }
-
-    // Start is called before the first frame update
-    void Start() {
-    }
-
-    // Update is called once per frame
-    void Update() {
+        touchDirections = GetComponent<TouchDirections>();
     }
 
     void FixedUpdate() {
@@ -79,6 +74,13 @@ public class PlayerController : MonoBehaviour
             IsRunning = true;
         } else if (context.canceled) {
             IsRunning = false;            
+        }
+    }
+
+    public void OnJump(InputAction.CallbackContext context) {
+        if (context.started && touchDirections.IsOnTheGround) {
+            animator.SetTrigger(AnimationNames.jump);
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpInitialSpeed);
         }
     }
 
