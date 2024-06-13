@@ -8,4 +8,5 @@ internal class AnimationNames {
     internal static string isOnTheGround = "isOnTheGround";
     internal static string yVelocity = "yVelocity";
     internal static string jump = "jump";
+    internal static string attack = "attack";
 }
