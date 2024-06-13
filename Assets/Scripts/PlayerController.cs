@@ -10,12 +10,12 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private TouchDirections touchDirections;
 
-    private bool isMoving;
-    public float walkSpeed = 5f; 
-    public float runSpeed = 12f;
-    public float jumpInitialSpeed = 10f;
+    [SerializeField] private float walkSpeed = 5f; 
+    [SerializeField] private float runSpeed = 12f;
+    [SerializeField] private float jumpInitialSpeed = 10f;
     private bool facingRight = true;
-
+    private bool isMoving;
+    private bool isRunning;
     Vector2 moveInput;
 
     public bool IsMoving {
@@ -27,8 +27,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool(AnimationNames.isMoving, value);
         }
     }
-
-    private bool isRunning;
 
     public bool IsRunning {
         get {
@@ -52,6 +50,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private float CurrentSpeed {
+        get {
+            Debug.Log("IsOnWall = " + touchDirections.IsOnWall);
+            Debug.Log("IsOnGround = " + touchDirections.IsOnGround);
+            if (!IsMoving || touchDirections.IsOnWall) return 0;
+            if (IsMoving && IsRunning) return runSpeed;
+            return walkSpeed;
+        }
+    }
+
     void Awake() {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -59,7 +67,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate() {
-        rigidBody.velocity = new Vector2(moveInput.x * (isRunning ? runSpeed : walkSpeed), rigidBody.velocity.y);
+        rigidBody.velocity = new Vector2(moveInput.x * CurrentSpeed, rigidBody.velocity.y);
         animator.SetFloat(AnimationNames.yVelocity, rigidBody.velocity.y);
     }
 
@@ -78,7 +86,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnJump(InputAction.CallbackContext context) {
-        if (context.started && touchDirections.IsOnTheGround) {
+        if (context.started && touchDirections.IsOnGround) {
             animator.SetTrigger(AnimationNames.jump);
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpInitialSpeed);
         }
