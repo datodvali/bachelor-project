@@ -52,8 +52,6 @@ public class PlayerController : MonoBehaviour
 
     private float CurrentSpeed {
         get {
-            Debug.Log("IsOnWall = " + touchDirections.IsOnWall);
-            Debug.Log("IsOnGround = " + touchDirections.IsOnGround);
             if (!IsMoving || touchDirections.IsOnWall) return 0;
             if (IsMoving && IsRunning) return runSpeed;
             return walkSpeed;
