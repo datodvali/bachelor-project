@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +10,12 @@ public class KnightLogic : MonoBehaviour
     [SerializeField] private float runSpeed = 5f;
     private Rigidbody2D rigidBody;
     private TouchDirections touchDirections;
+    [SerializeField] private DetectionZone attackZone;
     private Animator animator;
 
     public enum Direction {RIGHT, LEFT}
     [SerializeField] private Direction moveDirection;
+    private bool hasTarget = false;
     public Direction MoveDirection {
         get {
             return moveDirection;
@@ -20,6 +23,16 @@ public class KnightLogic : MonoBehaviour
         private set {
             moveDirection = value;
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+        }
+    }
+
+    public Boolean HasTarget {
+        get {
+            return hasTarget;
+        }
+        private set {
+            hasTarget = value;
+            animator.SetBool(AnimationNames.attack, value);
         }
     }
 
@@ -31,6 +44,10 @@ public class KnightLogic : MonoBehaviour
 
     void Start() {
         animator.SetBool(AnimationNames.isMoving, true);
+    }
+
+    void Update() {
+        HasTarget = attackZone.detectedColliders.Count > 0;
     }
 
     void FixedUpdate() {
