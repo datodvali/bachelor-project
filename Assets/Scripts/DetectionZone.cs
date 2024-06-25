@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class DetectionZone : MonoBehaviour
 {
-    internal List<Collider2D> detectedColliders = new List<Collider2D>();
-    Collider2D col;
+    internal List<Collider2D> detectedColliders = new();
 
     void OnTriggerEnter2D(Collider2D enteredCol) {
         detectedColliders.Add(enteredCol);

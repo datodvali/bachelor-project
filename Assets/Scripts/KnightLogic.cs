@@ -8,53 +8,64 @@ public class KnightLogic : MonoBehaviour
 {
 
     [SerializeField] private float runSpeed = 5f;
-    private Rigidbody2D rigidBody;
-    private TouchDirections touchDirections;
-    [SerializeField] private DetectionZone attackZone;
-    private Animator animator;
+    private Rigidbody2D _rigidBody;
+    private TouchDirections _touchDirections;
+    [SerializeField] private DetectionZone _attackZone;
+    private Animator _animator;
+    private Damageable _damageable;
 
     public enum Direction {RIGHT, LEFT}
-    [SerializeField] private Direction moveDirection;
-    private bool hasTarget = false;
+    private Direction _moveDirection = Direction.RIGHT;
+    private bool _hasTarget = false;
+
+    private float CurrentSpeed {
+        get {
+            if (!_damageable.IsAlive) return 0;
+            return runSpeed;
+        }
+    }
+
+
     public Direction MoveDirection {
         get {
-            return moveDirection;
+            return _moveDirection;
         }
         private set {
-            moveDirection = value;
+            _moveDirection = value;
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
         }
     }
 
     public Boolean HasTarget {
         get {
-            return hasTarget;
+            return _hasTarget;
         }
         private set {
-            hasTarget = value;
-            animator.SetBool(AnimationNames.attack, value);
+            _hasTarget = value;
+            _animator.SetBool(AnimationNames.attack, value);
         }
     }
 
     void Awake() {
-        rigidBody = GetComponent<Rigidbody2D>();
-        touchDirections = GetComponent<TouchDirections>();
-        animator = GetComponent<Animator>();
+        _rigidBody = GetComponent<Rigidbody2D>();
+        _touchDirections = GetComponent<TouchDirections>();
+        _animator = GetComponent<Animator>();
+        _damageable = GetComponent<Damageable>();
     }
 
     void Start() {
-        animator.SetBool(AnimationNames.isMoving, true);
+        _animator.SetBool(AnimationNames.isMoving, true);
     }
 
     void Update() {
-        HasTarget = attackZone.detectedColliders.Count > 0;
+        HasTarget = _attackZone.detectedColliders.Count > 0;
     }
 
     void FixedUpdate() {
-        if (touchDirections.IsOnGround && touchDirections.IsOnWall) {
+        if (_touchDirections.IsOnGround && _touchDirections.IsOnWall) {
             ChangeDirection();
         }
-        rigidBody.velocity = new Vector2(runSpeed* (MoveDirection == Direction.RIGHT ? 1 : -1),rigidBody.velocity.y);
+        _rigidBody.velocity = new Vector2(CurrentSpeed * (MoveDirection == Direction.RIGHT ? 1 : -1),_rigidBody.velocity.y);
     }
 
     private void ChangeDirection() {

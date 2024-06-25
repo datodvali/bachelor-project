@@ -2892,8 +2892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 5
-  attackZone: {fileID: 95941497}
-  moveDirection: 0
+  _attackZone: {fileID: 95941497}
 --- !u!114 &481727322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2909,9 +2908,6 @@ MonoBehaviour:
   groundDistance: 0.05
   wallDistance: 0.2
   ceilingDistance: 0.05
-  isOnGround: 0
-  isOnWall: 0
-  isOnCeiling: 0
   contactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -2927,6 +2923,19 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   capsuleCollider: {fileID: 0}
+--- !u!114 &481727326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481727313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350ed0a80a90a23479182578786c1f06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isInvincible: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3533,9 +3542,6 @@ MonoBehaviour:
   groundDistance: 0.05
   wallDistance: 0.2
   ceilingDistance: 0.05
-  isOnGround: 0
-  isOnWall: 0
-  isOnCeiling: 0
   contactFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -3551,6 +3557,19 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   capsuleCollider: {fileID: 0}
+--- !u!114 &1883581018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154082075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350ed0a80a90a23479182578786c1f06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isInvincible: 0
 --- !u!1001 &666941355322116940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3769,6 +3788,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6474011261945291983, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1883581012}
+    - targetCorrespondingSourceObject: {fileID: 6474011261945291983, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1883581018}
   m_SourcePrefab: {fileID: 100100000, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
 --- !u!1001 &3242208985898964161
 PrefabInstance:
@@ -3858,6 +3880,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2034596566880064582, guid: 865b860ed998c8e409f1c4419f76f2da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 481727322}
+    - targetCorrespondingSourceObject: {fileID: 2034596566880064582, guid: 865b860ed998c8e409f1c4419f76f2da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 481727326}
   m_SourcePrefab: {fileID: 100100000, guid: 865b860ed998c8e409f1c4419f76f2da, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
