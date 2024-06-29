@@ -60,6 +60,7 @@ public class Damageable : MonoBehaviour
             }
             _timeSinceLastHit += Time.deltaTime;
         }
+        OnHit(10);
     }
 
     public void OnHit(int damage) {
