@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchDirections), typeof(Animator))]
@@ -25,7 +26,6 @@ public class KnightLogic : MonoBehaviour
         }
     }
 
-
     public Direction MoveDirection {
         get {
             return _moveDirection;
@@ -42,7 +42,16 @@ public class KnightLogic : MonoBehaviour
         }
         private set {
             _hasTarget = value;
-            _animator.SetBool(AnimationNames.attack, value);
+            _animator.SetBool(AnimationNames.hasTarget, value);
+        }
+    }
+
+    public bool LockVelocity {
+        get {
+            return _animator.GetBool(AnimationNames.lockVelocity);
+        }
+        set {
+            _animator.SetBool(AnimationNames.lockVelocity, value);
         }
     }
 
@@ -62,6 +71,9 @@ public class KnightLogic : MonoBehaviour
     }
 
     void FixedUpdate() {
+        if (LockVelocity) {
+            return;
+        }
         if (_touchDirections.IsOnGround && _touchDirections.IsOnWall) {
             ChangeDirection();
         }
@@ -76,5 +88,9 @@ public class KnightLogic : MonoBehaviour
         } else {
             Debug.LogError("Knight move direction is not set to any legal value");
         }
+    }
+
+    private void OnDamageTaken(int damage, Vector2 knockBack) {
+        _rigidBody.velocity = new Vector2(knockBack.x, _rigidBody.velocity.y + knockBack.y);
     }
 }

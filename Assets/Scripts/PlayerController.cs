@@ -51,6 +51,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public bool LockVelocity {
+        get {
+            return _animator.GetBool(AnimationNames.lockVelocity);
+        }
+        set {
+            _animator.SetBool(AnimationNames.lockVelocity, value);
+        }
+    }
+
     private float CurrentSpeed {
         get {
             if (!IsMoving || _touchDirections.IsOnWall) return 0;
@@ -66,14 +75,16 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate() {
-        _rigidBody.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rigidBody.velocity.y);
+        if (!LockVelocity) {
+            _rigidBody.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rigidBody.velocity.y);
+        }
         _animator.SetFloat(AnimationNames.yVelocity, _rigidBody.velocity.y);
     }
 
     public void OnMove(InputAction.CallbackContext context) {
         _moveInput = context.ReadValue<Vector2>();
         IsMoving = _moveInput != Vector2.zero;
-        changeDirection(_moveInput);
+        ChangeDirection(_moveInput);
     }
 
     public void OnRun(InputAction.CallbackContext context) {
@@ -97,11 +108,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void changeDirection(Vector2 moveInput) {
+    private void ChangeDirection(Vector2 moveInput) {
         if (moveInput.x > 0 && !_facingRight) {
             FacingRight = true;
         } else if (moveInput.x < 0 && _facingRight) {
             FacingRight = false;
         }
+    }
+
+    public void OnDamageTaken(int damage, Vector2 knockBack) {
+        LockVelocity = true;
+        _rigidBody.velocity = new Vector2(knockBack.x, _rigidBody.velocity.y + knockBack.y);
+        Debug.Log("damage " + damage);
     }
 }

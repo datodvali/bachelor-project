@@ -11,9 +11,9 @@ public class TouchDirections : MonoBehaviour
     [SerializeField] private float wallDistance = 0.2f;
     [SerializeField] private float ceilingDistance = 0.05f;
 
-    private bool _isOnGround;
-    private bool _isOnWall;
-    private bool _isOnCeiling;
+    [SerializeField] private bool _isOnGround;
+    [SerializeField] private bool _isOnWall;
+    [SerializeField] private bool _isOnCeiling;
 
     [SerializeField] private ContactFilter2D contactFilter;
     
