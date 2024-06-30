@@ -1146,8 +1146,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _variableName: lockVelocity
-  _onStateEnter: 1
-  _onStateExit: 0
+  _updateOnStateEnter: 1
+  _updateOnStateExit: 1
+  _valueOnStateEnter: 1
+  _valueOnStateExit: 0
 --- !u!1101 &6559405289948341957
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
