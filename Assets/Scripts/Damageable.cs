@@ -70,6 +70,7 @@ public class Damageable : MonoBehaviour
             Health -= damage;
             if (_invincibilityTime > 0)_isInvincible = true;
             _damageEvent.Invoke(damage, knockBack);
+            CharacterEvents.characterDamaged(gameObject, damage);
         }
     }
 }
