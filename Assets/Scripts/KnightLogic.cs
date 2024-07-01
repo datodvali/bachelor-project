@@ -12,6 +12,7 @@ public class KnightLogic : MonoBehaviour
     private Rigidbody2D _rigidBody;
     private TouchDirections _touchDirections;
     [SerializeField] private DetectionZone _attackZone;
+    [SerializeField] private DetectionZone _groundZone;
     private Animator _animator;
     private Damageable _damageable;
 
@@ -90,7 +91,13 @@ public class KnightLogic : MonoBehaviour
         }
     }
 
-    private void OnDamageTaken(int damage, Vector2 knockBack) {
+    public void OnDamageTaken(int damage, Vector2 knockBack) {
         _rigidBody.velocity = new Vector2(knockBack.x, _rigidBody.velocity.y + knockBack.y);
+    }
+
+    public void CliffDetected() {
+        if (_touchDirections.IsOnGround) {
+            ChangeDirection();
+        }
     }
 }
