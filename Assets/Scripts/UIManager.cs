@@ -14,23 +14,23 @@ public class UIManager : MonoBehaviour
     }
 
     private void OnEnable() {
-        CharacterEvents.characterHealed += CharacterHealed;
-        CharacterEvents.characterDamaged += CharacterDamaged;
+        CharacterEvents.characterHealed += CharacterHealedHandler;
+        CharacterEvents.characterDamaged += CharacterDamagedHandler;
     }
 
     private void OnDisable() {
-        CharacterEvents.characterHealed -= CharacterHealed;
-        CharacterEvents.characterDamaged -= CharacterDamaged;
+        CharacterEvents.characterHealed -= CharacterHealedHandler;
+        CharacterEvents.characterDamaged -= CharacterDamagedHandler;
     }
 
-    private void CharacterHealed(GameObject character, float heal) {
+    private void CharacterHealedHandler(GameObject character, float heal) {
         Vector3 spawnPosition = Camera.main.WorldToScreenPoint(character.transform.position);
         Instantiate(_healTextPrefab, spawnPosition, Quaternion.identity, _gameCanvas.transform)
             .GetComponent<TMP_Text>()
             .SetText(heal.ToString());
     }
 
-    private void CharacterDamaged(GameObject character, float damage) {
+    private void CharacterDamagedHandler(GameObject character, float damage) {
         Vector3 spawnPosition = Camera.main.WorldToScreenPoint(character.transform.position);
         Instantiate(_damageTextPrefab, spawnPosition, Quaternion.identity, _gameCanvas.transform)
             .GetComponent<TMP_Text>()

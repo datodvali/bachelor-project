@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,7 +12,7 @@ public class Damageable : MonoBehaviour
     
     private bool _isAlive = true;
     private int _maxHealth = 100;
-    private int _health = 100;
+    [SerializeField] private int _health = 100;
     
 
     [SerializeField] private bool _isInvincible;
@@ -47,6 +48,9 @@ public class Damageable : MonoBehaviour
                 _health = 0;
                 IsAlive = false;
             }
+            if (_health > 100) {
+                _health = 100;
+            }
         }
     }
 
@@ -64,13 +68,23 @@ public class Damageable : MonoBehaviour
         }
     }
 
-    public void OnHit(int damage, Vector2 knockBack) {
+    public void OnHit(int damageAmount, Vector2 knockBack) {
         if (IsAlive && !_isInvincible) {
             _animator.SetTrigger(AnimationNames.hit);
-            Health -= damage;
+            damageAmount = Math.Min(_health, damageAmount);
+            Health -= damageAmount;
             if (_invincibilityTime > 0)_isInvincible = true;
-            _damageEvent.Invoke(damage, knockBack);
-            CharacterEvents.characterDamaged(gameObject, damage);
+            _damageEvent.Invoke(damageAmount, knockBack);
+            CharacterEvents.characterDamaged(gameObject, damageAmount);
+        }
+    }
+
+    public void Heal(int healAmount)
+    {
+        if (IsAlive) {
+            healAmount = Math.Min(_maxHealth - _health, healAmount);
+            Health += healAmount;
+            CharacterEvents.characterHealed(gameObject, healAmount);
         }
     }
 }
