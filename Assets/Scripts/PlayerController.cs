@@ -108,6 +108,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnRangedAttack(InputAction.CallbackContext context) {
+        if (context.started) {
+            _animator.SetTrigger(AnimationNames.rangedAttack);
+        }
+    }
+
     private void ChangeDirection(Vector2 moveInput) {
         if (moveInput.x > 0 && !_facingRight) {
             FacingRight = true;

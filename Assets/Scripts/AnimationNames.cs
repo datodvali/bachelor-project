@@ -14,6 +14,7 @@ internal class AnimationNames {
     internal static string jump = "jump";
     internal static string hasTarget = "hasTarget";
     internal static string attack = "attack";
+    internal static string rangedAttack = "rangedAttack";
     internal static string hit = "hit";
     internal static string isAlive = "isAlive";
     internal static string lockVelocity = "lockVelocity";
