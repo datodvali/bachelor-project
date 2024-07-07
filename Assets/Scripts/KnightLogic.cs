@@ -73,6 +73,7 @@ public class KnightLogic : MonoBehaviour
 
     void FixedUpdate() {
         if (LockVelocity) {
+            _rigidBody.velocity = Vector2.zero;
             return;
         }
         if (_touchDirections.IsOnGround && _touchDirections.IsOnWall) {
