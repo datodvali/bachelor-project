@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class Damageable : MonoBehaviour
 {
     [SerializeField] private UnityEvent<int, Vector2> _damageEvent;
+    [SerializeField] private UnityEvent _deathEvent;
     private Animator _animator;
     
     private bool _isAlive = true;
@@ -26,6 +27,9 @@ public class Damageable : MonoBehaviour
         private set {
             _isAlive = value;
             _animator.SetBool(AnimationNames.isAlive, value);
+            if (!_isAlive) {
+                _deathEvent.Invoke();
+            }
         }
     }
 

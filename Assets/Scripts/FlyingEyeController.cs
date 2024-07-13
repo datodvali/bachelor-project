@@ -9,6 +9,7 @@ public class FlyingEyeController : MonoBehaviour
     private Animator _animator;
     [SerializeField] private DetectionZone _biteDetectionZone;
     private Damageable _damageable;
+    [SerializeField] private Collider2D _deathCollider;
 
     [SerializeField] private List<Transform> _wayPoints;
     private Transform _nextWayPoint;
@@ -64,9 +65,6 @@ public class FlyingEyeController : MonoBehaviour
             Fly();
         } else {
             _rb.velocity = Vector2.zero;
-            if (!_damageable.IsAlive) {
-                _rb.gravityScale = 2;
-            }
         }
     }
 
@@ -87,5 +85,12 @@ public class FlyingEyeController : MonoBehaviour
             Vector3 currScale = transform.localScale;  
             transform.localScale = new Vector3(currScale.x * -1, currScale.y, currScale.z);
         } 
+    }
+
+    public void OnDeath() {
+        Debug.Log("on death called");
+        _deathCollider.enabled = true;
+        _rb.velocity = new Vector2(0, _rb.velocity.y);
+        _rb.gravityScale = 2;
     }
 }
