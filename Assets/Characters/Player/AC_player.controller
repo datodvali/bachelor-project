@@ -1619,7 +1619,7 @@ MonoBehaviour:
   _variableName: lockVelocity
   _updateOnStateEnter: 1
   _updateOnStateMachineEnter: 0
-  _valueOnEnter: 0
+  _valueOnEnter: 1
   _valueOnExit: 0
 --- !u!1101 &6559405289948341957
 AnimatorStateTransition:

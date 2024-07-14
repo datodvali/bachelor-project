@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using UnityEditor;
 
 public class UIManager : MonoBehaviour
 {
@@ -35,5 +38,19 @@ public class UIManager : MonoBehaviour
         Instantiate(_damageTextPrefab, spawnPosition, Quaternion.identity, _gameCanvas.transform)
             .GetComponent<TMP_Text>()
             .SetText(damage.ToString());
+    }
+
+    public void OnEscape(InputAction.CallbackContext context) {
+        if (context.started) {
+            #if (DEVELOPMENT_BUILD || UNITY_EDITOR)
+                Debug.Log("Escape button hit");
+            #endif
+            
+            #if (UNITY_EDITOR)
+                UnityEditor.EditorApplication.isPlaying = false;
+            #elif (UNITY_STANDALONE)
+                Application.Quit();
+            #endif
+        }
     }
 }
