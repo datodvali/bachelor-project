@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c94efc43d0d1141991acfbe2a46319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 5
+  runSpeed: 4
   _attackZone: {fileID: 6043138670784232200}
   _groundZone: {fileID: 9097224360169152476}
 --- !u!95 &8326402820498227987
@@ -449,6 +449,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _health: 100
   _isInvincible: 0
   _invincibilityTime: 0
