@@ -6,11 +6,12 @@ public class Damageable : MonoBehaviour
 {
     [SerializeField] private UnityEvent<int, Vector2> _damageEvent;
     [SerializeField] private UnityEvent _deathEvent;
+    public UnityEvent healthUpdateEvent;
     private Animator _animator;
     
     private bool _isAlive = true;
-    private int _maxHealth = 100;
-    [SerializeField] private int _health = 100;
+    public int maxHealth = 100;
+    public int health = 100;
     
 
     [SerializeField] private bool _isInvincible;
@@ -32,26 +33,27 @@ public class Damageable : MonoBehaviour
 
     public int MaxHealth {
         get {
-            return _maxHealth;
+            return maxHealth;
         }
         private set{
-            _maxHealth = value;
+            maxHealth = value;
         }
     }
 
     public int Health {
         get {
-            return _health;
+            return health;
         }
         private set {
-            _health = value;
-            if (_health <= 0) {
-                _health = 0;
+            health = value;
+            if (health <= 0) {
+                health = 0;
                 IsAlive = false;
             }
-            if (_health > 100) {
-                _health = 100;
+            if (health > 100) {
+                health = 100;
             }
+            healthUpdateEvent.Invoke();
         }
     }
 
@@ -72,7 +74,7 @@ public class Damageable : MonoBehaviour
     public void OnHit(int damageAmount, Vector2 knockBack) {
         if (IsAlive && !_isInvincible) {
             _animator.SetTrigger(AnimationNames.hit);
-            damageAmount = Math.Min(_health, damageAmount);
+            damageAmount = Math.Min(health, damageAmount);
             Health -= damageAmount;
             if (_invincibilityTime > 0)_isInvincible = true;
             _damageEvent.Invoke(damageAmount, knockBack);
@@ -83,7 +85,7 @@ public class Damageable : MonoBehaviour
     public void Heal(int healAmount)
     {
         if (IsAlive) {
-            healAmount = Math.Min(_maxHealth - _health, healAmount);
+            healAmount = Math.Min(maxHealth - health, healAmount);
             Health += healAmount;
             CharacterEvents.characterHealed(gameObject, healAmount);
         }
