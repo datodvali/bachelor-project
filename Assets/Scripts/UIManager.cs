@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject _healTextPrefab;
     [SerializeField] GameObject _damageTextPrefab;
+    [SerializeField] GameObject _secondLifeTextPrefab;
     [SerializeField] Canvas _gameCanvas;
 
     void Awake() {
@@ -15,11 +16,13 @@ public class UIManager : MonoBehaviour
     private void OnEnable() {
         CharacterEvents.characterHealed += CharacterHealedHandler;
         CharacterEvents.characterDamaged += CharacterDamagedHandler;
+        CharacterEvents.secondLifeGained += SecondLifeGainedHandler;
     }
 
     private void OnDisable() {
         CharacterEvents.characterHealed -= CharacterHealedHandler;
         CharacterEvents.characterDamaged -= CharacterDamagedHandler;
+        CharacterEvents.secondLifeGained -= SecondLifeGainedHandler;
     }
 
     private void CharacterHealedHandler(GameObject character, float heal) {
@@ -34,6 +37,13 @@ public class UIManager : MonoBehaviour
         Instantiate(_damageTextPrefab, spawnPosition, Quaternion.identity, _gameCanvas.transform)
             .GetComponent<TMP_Text>()
             .SetText(damage.ToString());
+    }
+
+    private void SecondLifeGainedHandler(GameObject character) {
+        Vector3 spawnPosition = Camera.main.WorldToScreenPoint(character.transform.position);
+        Instantiate(_secondLifeTextPrefab, spawnPosition, Quaternion.identity, _gameCanvas.transform)
+            .GetComponent<TMP_Text>()
+            .SetText("+1 LIFE");
     }
 
     public void OnEscape(InputAction.CallbackContext context) {

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class Damageable : MonoBehaviour
 {
     [SerializeField] private UnityEvent<int, Vector2> _damageEvent;
-    [SerializeField] private UnityEvent _deathEvent;
+    public UnityEvent deathEvent;
     public UnityEvent healthUpdateEvent;
     private Animator _animator;
     
@@ -22,11 +22,11 @@ public class Damageable : MonoBehaviour
         get {
             return _isAlive;
         }
-        private set {
+        set {
             _isAlive = value;
             _animator.SetBool(AnimationNames.isAlive, value);
             if (!_isAlive) {
-                _deathEvent.Invoke();
+                deathEvent.Invoke();
             }
         }
     }
@@ -44,7 +44,7 @@ public class Damageable : MonoBehaviour
         get {
             return health;
         }
-        private set {
+        set {
             health = value;
             if (health <= 0) {
                 health = 0;
@@ -76,7 +76,7 @@ public class Damageable : MonoBehaviour
             _animator.SetTrigger(AnimationNames.hit);
             damageAmount = Math.Min(health, damageAmount);
             Health -= damageAmount;
-            if (_invincibilityTime > 0)_isInvincible = true;
+            if (_invincibilityTime > 0) _isInvincible = true;
             _damageEvent.Invoke(damageAmount, knockBack);
             CharacterEvents.characterDamaged(gameObject, damageAmount);
         }

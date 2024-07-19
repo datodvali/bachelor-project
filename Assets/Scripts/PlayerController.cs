@@ -7,11 +7,13 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rigidBody;
     private Animator _animator;
     private TouchDirections _touchDirections;
+    private Damageable _damageable;
 
-    [SerializeField] private float walkSpeed = 5f; 
-    [SerializeField] private float runSpeed = 12f;
-    [SerializeField] private float jumpInitialSpeed = 10f;
-    
+    [SerializeField] private float _walkSpeed = 5f;
+    [SerializeField] private float _runSpeed = 12f;
+    [SerializeField] private float _jumpInitialSpeed = 10f;
+
+    public bool hasSecondLife = false;
     private bool _facingRight = true;
     private bool _isMoving;
     private bool _isRunning;
@@ -61,8 +63,8 @@ public class PlayerController : MonoBehaviour
     private float CurrentSpeed {
         get {
             if (!IsMoving || _touchDirections.IsOnWall) return 0;
-            if (IsMoving && IsRunning) return runSpeed;
-            return walkSpeed;
+            if (IsMoving && IsRunning) return _runSpeed;
+            return _walkSpeed;
         }
     }
 
@@ -70,6 +72,7 @@ public class PlayerController : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _touchDirections = GetComponent<TouchDirections>();
+        _damageable = GetComponent<Damageable>();
     }
 
     void FixedUpdate() {
@@ -96,7 +99,7 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context) {
         if (context.started && _touchDirections.IsOnGround) {
             _animator.SetTrigger(AnimationNames.jump);
-            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, jumpInitialSpeed);
+            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, _jumpInitialSpeed);
         }
     }
 
@@ -123,6 +126,27 @@ public class PlayerController : MonoBehaviour
     public void OnDamageTaken(int damage, Vector2 knockBack) {
         LockVelocity = true;
         _rigidBody.velocity = new Vector2(knockBack.x, _rigidBody.velocity.y + knockBack.y);
-        Debug.Log("damage " + damage);
+    }
+
+    public void OnSecondLifeGained() {
+        if (hasSecondLife == true) return;
+        hasSecondLife = true;
+        CharacterEvents.secondLifeGained(gameObject);
+    }
+
+    private void OnDeath() {
+        if (hasSecondLife) {
+            hasSecondLife = false;
+            _damageable.IsAlive = true;
+            _damageable.Health = _damageable.MaxHealth;
+        }
+    }
+
+    void OnEnable() {
+        _damageable.deathEvent.AddListener(OnDeath);
+    }
+
+    void OnDisable() {
+        _damageable.deathEvent.RemoveListener(OnDeath);
     }
 }

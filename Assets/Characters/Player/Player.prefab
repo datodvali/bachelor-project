@@ -458,9 +458,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8047cc643f32c9947ab7eb810bef59b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 7
-  runSpeed: 12
-  jumpInitialSpeed: 11
+  _walkSpeed: 5
+  _runSpeed: 12
+  _jumpInitialSpeed: 11
 --- !u!114 &6169564231260894538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,7 +734,12 @@ MonoBehaviour:
   _deathEvent:
     m_PersistentCalls:
       m_Calls: []
-  _health: 100
+  healthUpdateEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  hasSecondLife: 0
+  maxHealth: 100
+  health: 100
   _isInvincible: 0
   _invincibilityTime: 1
 --- !u!114 &4429029177349775985
