@@ -12,8 +12,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _walkSpeed = 5f;
     [SerializeField] private float _runSpeed = 12f;
     [SerializeField] private float _jumpInitialSpeed = 10f;
+    private float _superSpeedTimeRemaining = 0f;
+    private float _superSpeedMultiplier = 1.4f;
 
-    public bool hasSecondLife = false;
+    private bool _hasSecondLife = false;
+    private bool _hasSuperSpeed = false;
     private bool _facingRight = true;
     private bool _isMoving;
     private bool _isRunning;
@@ -63,8 +66,9 @@ public class PlayerController : MonoBehaviour
     private float CurrentSpeed {
         get {
             if (!IsMoving || _touchDirections.IsOnWall) return 0;
-            if (IsMoving && IsRunning) return _runSpeed;
-            return _walkSpeed;
+            float multiplier = _hasSuperSpeed ? _superSpeedMultiplier : 1f;
+            if (IsMoving && IsRunning) return _runSpeed * multiplier;
+            return _walkSpeed * multiplier;
         }
     }
 
@@ -80,6 +84,10 @@ public class PlayerController : MonoBehaviour
             _rigidBody.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rigidBody.velocity.y);
         }
         _animator.SetFloat(AnimationNames.yVelocity, _rigidBody.velocity.y);
+    }
+
+    void Update() {
+        CheckSuperSpeed();
     }
 
     public void OnMove(InputAction.CallbackContext context) {
@@ -129,16 +137,29 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnSecondLifeGained() {
-        if (hasSecondLife == true) return;
-        hasSecondLife = true;
+        if (_hasSecondLife == true) return;
+        _hasSecondLife = true;
         CharacterEvents.secondLifeGained(gameObject);
     }
 
+    public void OnSuperSpeedGained(float superSpeedTime) {
+        _hasSuperSpeed = true;
+        _superSpeedTimeRemaining += superSpeedTime;
+    }
+
     private void OnDeath() {
-        if (hasSecondLife) {
-            hasSecondLife = false;
+        if (_hasSecondLife) {
+            _hasSecondLife = false;
             _damageable.IsAlive = true;
             _damageable.Health = _damageable.MaxHealth;
+        }
+    }
+
+    private void CheckSuperSpeed() {
+        _superSpeedTimeRemaining -= Time.deltaTime;
+        if (_superSpeedTimeRemaining <= 0) {
+            _superSpeedTimeRemaining = 0;
+            _hasSuperSpeed = false;
         }
     }
 

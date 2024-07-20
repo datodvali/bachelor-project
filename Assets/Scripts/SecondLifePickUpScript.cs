@@ -2,18 +2,17 @@ using UnityEngine;
 
 public class SecondLifePickUpScript : MonoBehaviour
 {
-    private AudioSource _healSfx;
+    private AudioSource secondLifeSfx;
 
     void Awake() {
-        _healSfx = GetComponent<AudioSource>();
+        secondLifeSfx = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D collider) {
         if (collider.TryGetComponent<PlayerController>(out var player)) {
-            Debug.Log("got player controller");
             player.OnSecondLifeGained();
-            if (_healSfx != null) {
-                AudioSource.PlayClipAtPoint(_healSfx.clip, gameObject.transform.position, _healSfx.volume);
+            if (secondLifeSfx != null) {
+                AudioSource.PlayClipAtPoint(secondLifeSfx.clip, gameObject.transform.position, secondLifeSfx.volume);
             }
             Destroy(gameObject);
         }
