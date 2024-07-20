@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
@@ -16,7 +17,8 @@ public class Damageable : MonoBehaviour
 
     [SerializeField] private bool _isInvincible;
     private float _timeSinceLastHit = 0f;
-    [SerializeField] private float _invincibilityTime;
+    private float _invincibilityTime;
+    [SerializeField] private float _invincibilityTimeOnHit;
 
     public bool IsAlive {
         get {
@@ -76,7 +78,7 @@ public class Damageable : MonoBehaviour
             _animator.SetTrigger(AnimationNames.hit);
             damageAmount = Math.Min(health, damageAmount);
             Health -= damageAmount;
-            if (_invincibilityTime > 0) _isInvincible = true;
+            if (_invincibilityTimeOnHit > 0) ActivateInvincibilityOnHit();
             _damageEvent.Invoke(damageAmount, knockBack);
             CharacterEvents.characterDamaged(gameObject, damageAmount);
         }
@@ -88,6 +90,18 @@ public class Damageable : MonoBehaviour
             healAmount = Math.Min(maxHealth - health, healAmount);
             Health += healAmount;
             CharacterEvents.characterHealed(gameObject, healAmount);
+        }
+    }
+
+    public void OnInvincibilityGained(float invincibilityTime) {
+        _isInvincible = true;
+        _invincibilityTime += invincibilityTime;
+    }
+
+    private void ActivateInvincibilityOnHit() {
+        if (!_isInvincible) {
+            _isInvincible = true;
+            _invincibilityTime = _invincibilityTimeOnHit;
         }
     }
 }

@@ -13,8 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _runSpeed = 12f;
     [SerializeField] private float _jumpInitialSpeed = 10f;
     private float _superSpeedTimeRemaining = 0f;
-    private float _superSpeedMultiplier = 1.4f;
-
+    private readonly float _superSpeedMultiplier = 1.4f;
     private bool _hasSecondLife = false;
     private bool _hasSuperSpeed = false;
     private bool _facingRight = true;

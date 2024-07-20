@@ -731,17 +731,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _deathEvent:
+  deathEvent:
     m_PersistentCalls:
       m_Calls: []
   healthUpdateEvent:
     m_PersistentCalls:
       m_Calls: []
-  hasSecondLife: 0
   maxHealth: 100
   health: 100
   _isInvincible: 0
-  _invincibilityTime: 1
+  _invincibilityTime: 0
+  _invincibilityTimeOnHit: 1
 --- !u!114 &4429029177349775985
 MonoBehaviour:
   m_ObjectHideFlags: 0
