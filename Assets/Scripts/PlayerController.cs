@@ -1,5 +1,8 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(TouchDirections))]
 public class PlayerController : MonoBehaviour
@@ -8,13 +11,14 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     private TouchDirections _touchDirections;
     private Damageable _damageable;
+    private PlayerVisualController _playerVisualController;
 
     [SerializeField] private float _walkSpeed = 5f;
     [SerializeField] private float _runSpeed = 12f;
     [SerializeField] private float _jumpInitialSpeed = 10f;
     private float _superSpeedTimeRemaining = 0f;
     private readonly float _superSpeedMultiplier = 1.4f;
-    private bool _hasSecondLife = false;
+    public bool hasSecondLife = false;
     private bool _hasSuperSpeed = false;
     private bool _facingRight = true;
     private bool _isMoving;
@@ -76,6 +80,7 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _touchDirections = GetComponent<TouchDirections>();
         _damageable = GetComponent<Damageable>();
+        _playerVisualController = GetComponent<PlayerVisualController>();
     }
 
     void FixedUpdate() {
@@ -136,29 +141,40 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnSecondLifeGained() {
-        if (_hasSecondLife == true) return;
-        _hasSecondLife = true;
+        if (hasSecondLife == true) return;
+        hasSecondLife = true;
         CharacterEvents.secondLifeGained(gameObject);
     }
 
     public void OnSuperSpeedGained(float superSpeedTime) {
         _hasSuperSpeed = true;
-        _superSpeedTimeRemaining += superSpeedTime;
+        _superSpeedTimeRemaining = superSpeedTime;
+        _playerVisualController.ApplySuperSpeedEffects();
     }
 
     private void OnDeath() {
-        if (_hasSecondLife) {
-            _hasSecondLife = false;
+        if (hasSecondLife) {
+            hasSecondLife = false;
             _damageable.IsAlive = true;
             _damageable.Health = _damageable.MaxHealth;
         }
     }
 
     private void CheckSuperSpeed() {
+        if (!_hasSuperSpeed) return;
         _superSpeedTimeRemaining -= Time.deltaTime;
         if (_superSpeedTimeRemaining <= 0) {
             _superSpeedTimeRemaining = 0;
             _hasSuperSpeed = false;
+            _playerVisualController.ApplyNormalEffects();
+        } else {
+            ApplyPulseEffectIfNecessary();
+        }
+    }
+
+    private void ApplyPulseEffectIfNecessary() {
+        if (_superSpeedTimeRemaining <= 2f) {
+            _playerVisualController.ApplyPulsingEffects();
         }
     }
 

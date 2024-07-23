@@ -9,7 +9,7 @@ public class SecondLifePickUpScript : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collider) {
-        if (collider.TryGetComponent<PlayerController>(out var player)) {
+        if (collider.TryGetComponent<PlayerController>(out var player) && !player.hasSecondLife) {
             player.OnSecondLifeGained();
             if (secondLifeSfx != null) {
                 AudioSource.PlayClipAtPoint(secondLifeSfx.clip, gameObject.transform.position, secondLifeSfx.volume);

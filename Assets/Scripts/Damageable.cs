@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
 {
+    private PlayerVisualController _playerVisualController;
     [SerializeField] private UnityEvent<int, Vector2> _damageEvent;
     public UnityEvent deathEvent;
     public UnityEvent healthUpdateEvent;
@@ -16,7 +17,6 @@ public class Damageable : MonoBehaviour
     
 
     [SerializeField] private bool _isInvincible;
-    private float _timeSinceLastHit = 0f;
     private float _invincibilityTime;
     [SerializeField] private float _invincibilityTimeOnHit;
 
@@ -61,15 +61,18 @@ public class Damageable : MonoBehaviour
 
     public void Awake() {
         _animator = GetComponent<Animator>();
+        _playerVisualController = GetComponent<PlayerVisualController>();
     }
 
     public void Update() {
-        if (_isInvincible) {
-            if (_timeSinceLastHit > _invincibilityTime) {
-                _isInvincible = false;
-                _timeSinceLastHit = 0;
-            }
-            _timeSinceLastHit += Time.deltaTime;
+        if (!_isInvincible) return;
+        _invincibilityTime -= Time.deltaTime;
+        if (_invincibilityTime <= 0) {
+            _isInvincible = false;
+            _invincibilityTime = 0;
+            _playerVisualController.ApplyNormalEffects();
+        } else {
+            ApplyPulseEffectIfNecessary();
         }
     }
 
@@ -95,13 +98,21 @@ public class Damageable : MonoBehaviour
 
     public void OnInvincibilityGained(float invincibilityTime) {
         _isInvincible = true;
-        _invincibilityTime += invincibilityTime;
+        _invincibilityTime = invincibilityTime;
+        _playerVisualController.ApplyInvincibilityEffects();
     }
 
     private void ActivateInvincibilityOnHit() {
         if (!_isInvincible) {
             _isInvincible = true;
             _invincibilityTime = _invincibilityTimeOnHit;
+            _playerVisualController.ApplyInvincibilityEffects();
+        }
+    }
+
+    private void ApplyPulseEffectIfNecessary() {
+        if (_invincibilityTime <= 2f) {
+            _playerVisualController.ApplyPulsingEffects();
         }
     }
 }

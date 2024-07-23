@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 3911672201931439957}
   - component: {fileID: 1728318151840379790}
   - component: {fileID: 4429029177349775985}
+  - component: {fileID: 3437227380674031599}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -740,7 +741,6 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   _isInvincible: 0
-  _invincibilityTime: 0
   _invincibilityTimeOnHit: 1
 --- !u!114 &4429029177349775985
 MonoBehaviour:
@@ -756,6 +756,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectilePrefab: {fileID: 7752616194557197168, guid: 11631fda0522c4642884e5d5f44f160a, type: 3}
   _launchPoint: {fileID: 6756233973967678653}
+--- !u!114 &3437227380674031599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6474011261945291983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d58cebff510dd646a756a4d64fafc93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7608545275994918475
 GameObject:
   m_ObjectHideFlags: 0
