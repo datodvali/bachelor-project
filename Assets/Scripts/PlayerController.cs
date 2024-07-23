@@ -1,8 +1,5 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(TouchDirections))]
 public class PlayerController : MonoBehaviour

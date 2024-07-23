@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
@@ -25,10 +24,12 @@ public class Damageable : MonoBehaviour
             return _isAlive;
         }
         set {
-            _isAlive = value;
             _animator.SetBool(AnimationNames.isAlive, value);
-            if (!_isAlive) {
+            if (_isAlive && !value) {
+                _isAlive = value;
                 deathEvent.Invoke();
+            } else {
+                _isAlive = value;
             }
         }
     }
@@ -50,12 +51,12 @@ public class Damageable : MonoBehaviour
             health = value;
             if (health <= 0) {
                 health = 0;
-                IsAlive = false;
             }
             if (health > 100) {
                 health = 100;
             }
             healthUpdateEvent.Invoke();
+            if (health == 0) IsAlive = false;
         }
     }
 

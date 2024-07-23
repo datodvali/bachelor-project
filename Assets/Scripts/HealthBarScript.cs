@@ -20,13 +20,29 @@ public class HealthBarScript : MonoBehaviour
     void OnEnable() {
         HandleHealthUpdate();
         _damageable.healthUpdateEvent.AddListener(HandleHealthUpdate);
+        CharacterEvents.secondLifeGained += HandleSecondLifeGained;
+        
     }
 
     void OnDisable() {
         _damageable.healthUpdateEvent.RemoveListener(HandleHealthUpdate);
+        CharacterEvents.secondLifeGained -= HandleSecondLifeGained;
     }
 
     private void HandleHealthUpdate() {
-        _healthBar.value = ((float)_damageable.health / _damageable.maxHealth);
+        _healthBar.value = ((float) _damageable.health / _damageable.maxHealth);
+        if (_healthBar.value <= 0) HandleLifeDepleted();
+    }
+
+    private void HandleSecondLifeGained(GameObject gameObject) {
+        ColorBlock colors = _healthBar.colors;
+        colors.disabledColor = new Color(255,215,0);
+        _healthBar.colors = colors;
+    }
+
+    private void HandleLifeDepleted() {
+        ColorBlock colors = _healthBar.colors;
+        colors.disabledColor = new Color32(57,231,67,128);
+        _healthBar.colors = colors;
     }
 }
