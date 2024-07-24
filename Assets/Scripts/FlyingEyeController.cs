@@ -9,12 +9,10 @@ public class FlyingEyeController : MonoBehaviour
     [SerializeField] private DetectionZone _biteDetectionZone;
     private Damageable _damageable;
     [SerializeField] private Collider2D _deathCollider;
-
     [SerializeField] private List<Transform> _wayPoints;
     private Transform _nextWayPoint;
     private int _wayPointIndex;
     [SerializeField] private float _flightSpeed = 2f;
-
     private bool _hasTarget = false;
     private float _minDistance = 0.3f;
 
@@ -43,14 +41,13 @@ public class FlyingEyeController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _damageable = GetComponent<Damageable>();
     }
-    // Start is called before the first frame update
+
     void Start()
     {   
         _wayPointIndex = 0;
         _nextWayPoint = _wayPoints[_wayPointIndex];
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!_damageable.IsAlive) {
