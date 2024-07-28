@@ -3,7 +3,7 @@ using UnityEngine;
 public class SpikeTrapScript : MonoBehaviour
 {
     [SerializeField] private int _damage = 100;
-    private Vector2 _knockBack = Vector2.up * 5;
+    private Vector2 _knockBack = Vector2.up * 10;
     private AudioSource _sfx;
 
     void Awake() {
