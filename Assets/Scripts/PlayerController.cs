@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpInitialSpeed = 10f;
     private float _superSpeedTimeRemaining = 0f;
     private readonly float _superSpeedMultiplier = 1.4f;
+    private bool _superSpeedEffectPulsing = false;
     public bool hasSecondLife = false;
     private bool _hasSuperSpeed = false;
     private bool _facingRight = true;
@@ -163,15 +164,17 @@ public class PlayerController : MonoBehaviour
         if (_superSpeedTimeRemaining <= 0) {
             _superSpeedTimeRemaining = 0;
             _hasSuperSpeed = false;
-            _playerVisualController.ApplyNormalEffects();
+            _playerVisualController.RevokeSuperSpeedEffects();
+            _superSpeedEffectPulsing = false;
         } else {
             ApplyPulseEffectIfNecessary();
         }
     }
 
     private void ApplyPulseEffectIfNecessary() {
-        if (_superSpeedTimeRemaining <= 2f) {
-            _playerVisualController.ApplyPulsingEffects();
+        if (_superSpeedTimeRemaining <= 2f && !_superSpeedEffectPulsing) {
+            _superSpeedEffectPulsing = true;
+            _playerVisualController.StartPulsing();
         }
     }
 

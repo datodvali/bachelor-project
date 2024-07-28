@@ -16,6 +16,7 @@ public class Damageable : MonoBehaviour
     
 
     [SerializeField] private bool _isInvincible;
+    [SerializeField] private bool _invincibilityEffectPulsing;
     private float _invincibilityTime;
     [SerializeField] private float _invincibilityTimeOnHit;
 
@@ -71,7 +72,8 @@ public class Damageable : MonoBehaviour
         if (_invincibilityTime <= 0) {
             _isInvincible = false;
             _invincibilityTime = 0;
-            _playerVisualController.ApplyNormalEffects();
+            _playerVisualController.RevokeInvincibilityEffects();
+            _invincibilityEffectPulsing = false;
         } else {
             ApplyPulseEffectIfNecessary();
         }
@@ -112,8 +114,9 @@ public class Damageable : MonoBehaviour
     }
 
     private void ApplyPulseEffectIfNecessary() {
-        if (_invincibilityTime <= 2f) {
-            _playerVisualController.ApplyPulsingEffects();
+        if (_invincibilityTime <= 2f && !_invincibilityEffectPulsing) {
+            _invincibilityEffectPulsing = true;
+            _playerVisualController.StartPulsing();
         }
     }
 }
