@@ -1,28 +1,45 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
+    private readonly string _pauseScreenTag = "PauseScreen";
     [SerializeField] GameObject _healTextPrefab;
     [SerializeField] GameObject _damageTextPrefab;
     [SerializeField] GameObject _secondLifeTextPrefab;
     [SerializeField] Canvas _gameCanvas;
+    private bool _gamePaused = false;
+    private GameObject _pauseScreen;
 
     void Awake() {
         _gameCanvas = FindObjectOfType<Canvas>();
+        FindPauseScreen();
+    }
+
+    private void FindPauseScreen() {
+        _pauseScreen = _gameCanvas.GetComponentsInChildren<RectTransform>(true).FirstOrDefault(t => t.CompareTag(_pauseScreenTag))?.gameObject;
+
+        if (_pauseScreen == null) {
+            Debug.LogError("PauseScreen not found!");
+        }
     }
 
     private void OnEnable() {
         CharacterEvents.characterHealed += CharacterHealedHandler;
         CharacterEvents.characterDamaged += CharacterDamagedHandler;
         CharacterEvents.secondLifeGained += SecondLifeGainedHandler;
+        GameEvents.gamePaused += GamePausedHandler;
+        GameEvents.gameResumed += GameResumedHandler;
     }
 
     private void OnDisable() {
         CharacterEvents.characterHealed -= CharacterHealedHandler;
         CharacterEvents.characterDamaged -= CharacterDamagedHandler;
         CharacterEvents.secondLifeGained -= SecondLifeGainedHandler;
+        GameEvents.gamePaused -= GamePausedHandler;
+        GameEvents.gameResumed -= GameResumedHandler;
     }
 
     private void CharacterHealedHandler(GameObject character, float heal) {
@@ -46,17 +63,27 @@ public class UIManager : MonoBehaviour
             .SetText("+1 LIFE");
     }
 
+    private void GamePausedHandler() {
+        _gamePaused = true;
+        _pauseScreen.SetActive(true);
+    }
+
+    private void GameResumedHandler() {
+        _gamePaused = false;
+        _pauseScreen.SetActive(false);
+    }
+
     public void OnEscape(InputAction.CallbackContext context) {
         if (context.started) {
             #if (DEVELOPMENT_BUILD || UNITY_EDITOR)
                 Debug.Log("Escape button hit");
             #endif
             
-            #if (UNITY_EDITOR)
-                UnityEditor.EditorApplication.isPlaying = false;
-            #elif (UNITY_STANDALONE)
-                Application.Quit();
-            #endif
+            if (_gamePaused) {
+                GameEvents.gameResumed.Invoke();
+            } else {
+                GameEvents.gamePaused.Invoke();
+            }
         }
     }
 }
