@@ -5,17 +5,24 @@ public class PlayerVisualController : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
     private Coroutine _pulseCoroutine;
+    private float _currentOpacity = 1f;
+    private float _invincibilityOpacity = 0.7f;
 
     void Awake() {
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void ApplySuperSpeedEffects() {
-        _spriteRenderer.color = Color.red;
+        _spriteRenderer.color = new Color(Color.red.r, Color.red.g, Color.red.b, _currentOpacity);
+    }
+
+    public void RevokeSuperSpeedEffects() {
+
     }
 
     public void ApplyInvincibilityEffects() {
-        _spriteRenderer.color = new Color(255, 255, 255, 0.7f);
+        _currentOpacity = _invincibilityOpacity;
+        _spriteRenderer.color = new Color(255, 255, 255, _invincibilityOpacity);
     }
 
     public void ApplyNormalEffects() {

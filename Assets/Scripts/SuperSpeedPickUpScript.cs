@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class SuperSpeedPickUpScript : MonoBehaviour
 {
-    private AudioSource sfx;
+    private AudioSource _sfx;
+    [SerializeField] private float _superSpeedDuration = 10f;
 
     void Awake() {
-        sfx = GetComponent<AudioSource>();
+        _sfx = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D collider) {
         if (collider.TryGetComponent<PlayerController>(out var player)) {
-            player.OnSuperSpeedGained(10f);
-            if (sfx != null) {
-                AudioSource.PlayClipAtPoint(sfx.clip, gameObject.transform.position, sfx.volume);
+            player.OnSuperSpeedGained(_superSpeedDuration);
+            if (_sfx != null) {
+                AudioSource.PlayClipAtPoint(_sfx.clip, gameObject.transform.position, _sfx.volume);
             }
             Destroy(gameObject);
         }

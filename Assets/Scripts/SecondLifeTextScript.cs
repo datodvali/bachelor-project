@@ -17,7 +17,6 @@ public class SecondLifeTextScript : MonoBehaviour
         _initialColor = _textMeshPro.color;
     }
 
-    // Update is called once per frame
     void Update()
     {
         _rectTransform.position += _moveVector * Time.deltaTime;
