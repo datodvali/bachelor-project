@@ -6,16 +6,19 @@ using UnityEngine.InputSystem;
 public class UIManager : MonoBehaviour
 {
     private readonly string _pauseScreenTag = "PauseScreen";
+    private readonly string _deathScreenTag = "DeathScreen";
     [SerializeField] GameObject _healTextPrefab;
     [SerializeField] GameObject _damageTextPrefab;
     [SerializeField] GameObject _secondLifeTextPrefab;
     [SerializeField] Canvas _gameCanvas;
     private bool _gamePaused = false;
     private GameObject _pauseScreen;
+    private GameObject _deathScreen;
 
     void Awake() {
         _gameCanvas = FindObjectOfType<Canvas>();
         FindPauseScreen();
+        FindDeathScreen();
     }
 
     private void FindPauseScreen() {
@@ -26,12 +29,21 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void FindDeathScreen() {
+        _deathScreen = _gameCanvas.GetComponentsInChildren<RectTransform>(true).FirstOrDefault(t => t.CompareTag(_deathScreenTag))?.gameObject;
+
+        if (_deathScreen == null) {
+            Debug.LogError("DeathScreen not found!");
+        }
+    }
+
     private void OnEnable() {
         CharacterEvents.characterHealed += CharacterHealedHandler;
         CharacterEvents.characterDamaged += CharacterDamagedHandler;
         CharacterEvents.secondLifeGained += SecondLifeGainedHandler;
         GameEvents.gamePaused += GamePausedHandler;
         GameEvents.gameResumed += GameResumedHandler;
+        GameEvents.gameEnded += GameEndedHandler;
     }
 
     private void OnDisable() {
@@ -40,6 +52,7 @@ public class UIManager : MonoBehaviour
         CharacterEvents.secondLifeGained -= SecondLifeGainedHandler;
         GameEvents.gamePaused -= GamePausedHandler;
         GameEvents.gameResumed -= GameResumedHandler;
+        GameEvents.gameEnded -= GameEndedHandler;
     }
 
     private void CharacterHealedHandler(GameObject character, float heal) {
@@ -71,6 +84,10 @@ public class UIManager : MonoBehaviour
     private void GameResumedHandler() {
         _gamePaused = false;
         _pauseScreen.SetActive(false);
+    }
+
+    private void GameEndedHandler() {
+        _deathScreen.SetActive(true);
     }
 
     public void OnEscape(InputAction.CallbackContext context) {

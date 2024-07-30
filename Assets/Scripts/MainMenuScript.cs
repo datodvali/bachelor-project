@@ -3,12 +3,17 @@ using UnityEngine;
 
 public class MainMenuScript : MonoBehaviour
 {
+    private readonly string _deafultLevel = "Level 1";
     public void Play() {
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene(_deafultLevel);
     }
 
     public void Exit() {
-        Application.Quit();
+        #if (UNITY_EDITOR)
+            UnityEditor.EditorApplication.isPlaying = false;
+        #elif (UNITY_STANDALONE)
+            Application.Quit();
+        #endif
     }
 
     public void LoadLevel(string levelName) {

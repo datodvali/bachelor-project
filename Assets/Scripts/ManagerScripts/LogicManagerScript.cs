@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LogicManagerScript : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public class LogicManagerScript : MonoBehaviour
         NumCoins += numCoins;
     }
 
+    private void GameStartedHandler() {
+        Time.timeScale = 1;
+    }
+
     private void GamePausedHandler() {
         Time.timeScale = 0;
     }
@@ -37,13 +42,18 @@ public class LogicManagerScript : MonoBehaviour
 
     void OnEnable() {
         CharacterEvents.coinsClaimed += OnGetCoins;
+        GameEvents.gameStarted += GameStartedHandler;
         GameEvents.gamePaused += GamePausedHandler;
         GameEvents.gameResumed += GameResumedHandler;
+        GameEvents.gameEnded += GamePausedHandler; // to stop the passage of time after the game is over
+        GameEvents.gameStarted.Invoke();
     }
 
     void OnDisable() {
         CharacterEvents.coinsClaimed -= OnGetCoins;
+        GameEvents.gameStarted -= GameStartedHandler;
         GameEvents.gamePaused -= GamePausedHandler;
         GameEvents.gameResumed -= GameResumedHandler;
+        GameEvents.gameEnded -= GamePausedHandler;
     }
 }
