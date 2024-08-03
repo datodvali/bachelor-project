@@ -3,8 +3,8 @@ using UnityEngine;
 public class ArrowScript : MonoBehaviour
 {
     [SerializeField] private int _damage = 10;
-    [SerializeField] private Vector2 _knockBack = new Vector2(2f, 0);
-    [SerializeField] private Vector2 _moveVelocity = new Vector2(4f, 0);
+    [SerializeField] private Vector2 _knockBack = new(2f, 0);
+    [SerializeField] private Vector2 _moveVelocity = new(4f, 0);
     
     private Rigidbody2D _rb;
 
