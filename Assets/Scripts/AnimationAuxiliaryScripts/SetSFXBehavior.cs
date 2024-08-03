@@ -10,7 +10,6 @@ public class SetSFXBehavior : StateMachineBehaviour
     private float _timeSinceStart = 0f;
     private bool _hasDelayedAudioPlayed = false; 
 
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (_playOnEnter) {
@@ -18,7 +17,6 @@ public class SetSFXBehavior : StateMachineBehaviour
         }
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (_playDelayed && !_hasDelayedAudioPlayed) {
@@ -30,7 +28,6 @@ public class SetSFXBehavior : StateMachineBehaviour
         }
     }
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (_playOnExit) {
