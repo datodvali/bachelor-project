@@ -156,7 +156,7 @@ public class PlayerController : MonoBehaviour
             _damageable.IsAlive = true;
             _damageable.Health = _damageable.MaxHealth;
         } else {
-            GameEvents.gameEnded.Invoke();
+            GameEvents.gameOver.Invoke();
         }
     }
 

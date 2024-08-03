@@ -1,20 +1,10 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LogicManagerScript : MonoBehaviour
 {
-    private int _currLevel = 1;
+    public static LogicManagerScript Instance;
     private int _numCoins = 0;
     
-    public int CurrLevel {
-        get {
-            return _currLevel;
-        }
-        set {
-            _currLevel = value; 
-        }
-    }
-
     public int NumCoins {
         get {
             return _numCoins;
@@ -24,11 +14,25 @@ public class LogicManagerScript : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnGetCoins(int numCoins) {
         NumCoins += numCoins;
     }
 
     private void GameStartedHandler() {
+        NumCoins = 0;
         Time.timeScale = 1;
     }
 
@@ -45,7 +49,7 @@ public class LogicManagerScript : MonoBehaviour
         GameEvents.gameStarted += GameStartedHandler;
         GameEvents.gamePaused += GamePausedHandler;
         GameEvents.gameResumed += GameResumedHandler;
-        GameEvents.gameEnded += GamePausedHandler; // to stop the passage of time after the game is over
+        GameEvents.gameOver += GamePausedHandler; // to stop the passage of time after the game is over
         GameEvents.gameStarted.Invoke();
     }
 
@@ -54,6 +58,6 @@ public class LogicManagerScript : MonoBehaviour
         GameEvents.gameStarted -= GameStartedHandler;
         GameEvents.gamePaused -= GamePausedHandler;
         GameEvents.gameResumed -= GameResumedHandler;
-        GameEvents.gameEnded -= GamePausedHandler;
+        GameEvents.gameOver -= GamePausedHandler;
     }
 }

@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
         CharacterEvents.secondLifeGained += SecondLifeGainedHandler;
         GameEvents.gamePaused += GamePausedHandler;
         GameEvents.gameResumed += GameResumedHandler;
-        GameEvents.gameEnded += GameEndedHandler;
+        GameEvents.gameOver += GameEndedHandler;
     }
 
     private void OnDisable() {
@@ -52,7 +52,7 @@ public class UIManager : MonoBehaviour
         CharacterEvents.secondLifeGained -= SecondLifeGainedHandler;
         GameEvents.gamePaused -= GamePausedHandler;
         GameEvents.gameResumed -= GameResumedHandler;
-        GameEvents.gameEnded -= GameEndedHandler;
+        GameEvents.gameOver -= GameEndedHandler;
     }
 
     private void CharacterHealedHandler(GameObject character, float heal) {

@@ -3,7 +3,6 @@ using UnityEngine;
 public class CoinScript : MonoBehaviour
 {
     [SerializeField] private int _numCoins = 1;
-    [SerializeField] private LogicManagerScript _logicManager;
     private AudioSource _healSfx;
 
     void Awake() {
