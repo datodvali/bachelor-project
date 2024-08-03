@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelCompleteScript : MonoBehaviour {
 
     private readonly string SavedTimeKey = "BestTime{0}";
-    private readonly string SavedCoinsKey = "MostCoins{}";
+    private readonly string SavedCoinsKey = "MostCoins{0}";
 
     private string GetSavedTimeKey() {
         return string.Format(SavedTimeKey, SceneManager.GetActiveScene().name);
@@ -16,6 +15,7 @@ public class LevelCompleteScript : MonoBehaviour {
     }
 
     private void HandleLevelCompleted() {
+        Debug.Log("Level completed");
         UpdateBestTimeIfNeeded();
         UpdateMostCoinsIfNeeded();
     }
@@ -39,8 +39,6 @@ public class LevelCompleteScript : MonoBehaviour {
     }
 
     void OnEnable() {
-        float prevBestTime = PlayerPrefs.GetFloat(GetSavedTimeKey());
-        Debug.Log(String.Format("best time {0}", prevBestTime));
         GameEvents.levelComplete += HandleLevelCompleted;
     }
 

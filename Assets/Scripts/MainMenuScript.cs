@@ -6,6 +6,7 @@ public class MainMenuScript : MonoBehaviour
     private readonly string _deafultLevel = "Level 1";
     public void Play() {
         SceneManager.LoadScene(_deafultLevel);
+        GameEvents.gameStarted.Invoke();
     }
 
     public void Exit() {
@@ -18,5 +19,6 @@ public class MainMenuScript : MonoBehaviour
 
     public void LoadLevel(string levelName) {
         SceneManager.LoadScene(levelName);
+        GameEvents.gameStarted.Invoke();
     }
 }
