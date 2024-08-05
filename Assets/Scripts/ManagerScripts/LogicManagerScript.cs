@@ -1,10 +1,12 @@
+using System;
 using UnityEngine;
 
 public class LogicManagerScript : MonoBehaviour
 {
     public static LogicManagerScript Instance;
     private int _numCoins = 0;
-    
+    private bool _gameOn;
+
     public int NumCoins {
         get {
             return _numCoins;
@@ -14,8 +16,18 @@ public class LogicManagerScript : MonoBehaviour
         }
     }
 
+    public bool GameOn {
+        get {
+            return _gameOn;
+        }
+        private set {
+            _gameOn = value;
+        }
+    }
+
     private void Awake()
     {
+        GameOn = true;
         if (Instance == null)
         {
             Instance = this;
@@ -32,8 +44,14 @@ public class LogicManagerScript : MonoBehaviour
     }
 
     private void GameStartedHandler() {
+        GameOn = true;
         NumCoins = 0;
         Time.timeScale = 1;
+    }
+
+    private void GameOverHandler() {
+        GameOn = false;
+        GamePausedHandler();
     }
 
     private void GamePausedHandler() {
@@ -49,7 +67,7 @@ public class LogicManagerScript : MonoBehaviour
         GameEvents.gameStarted += GameStartedHandler;
         GameEvents.gamePaused += GamePausedHandler;
         GameEvents.gameResumed += GameResumedHandler;
-        GameEvents.gameOver += GamePausedHandler; // to stop the passage of time after the game is over
+        GameEvents.gameOver += GameOverHandler;
         GameEvents.gameStarted.Invoke();
     }
 
@@ -58,6 +76,6 @@ public class LogicManagerScript : MonoBehaviour
         GameEvents.gameStarted -= GameStartedHandler;
         GameEvents.gamePaused -= GamePausedHandler;
         GameEvents.gameResumed -= GameResumedHandler;
-        GameEvents.gameOver -= GamePausedHandler;
+        GameEvents.gameOver -= GameOverHandler;
     }
 }

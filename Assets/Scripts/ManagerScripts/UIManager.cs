@@ -91,7 +91,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void OnEscape(InputAction.CallbackContext context) {
-        if (context.started) {
+        if (context.started && LogicManagerScript.Instance.GameOn) {
             #if (DEVELOPMENT_BUILD || UNITY_EDITOR)
                 Debug.Log("Escape button hit");
             #endif
