@@ -84,8 +84,6 @@ public class BaseGroundEnemy : MonoBehaviour {
         }
         float moveSpeed = CurrentSpeed * (MoveDirection == Direction.RIGHT ? 1 : -1);
         _rigidBody.velocity = new Vector2(moveSpeed, _rigidBody.velocity.y);
-        
-        Debug.Log($"Moving {gameObject.name}: Speed = {moveSpeed}, Position = {transform.position}");
     }
 
     protected virtual void ChangeDirection()

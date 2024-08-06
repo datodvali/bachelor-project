@@ -64,10 +64,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sfxSource: {fileID: 8300000, guid: 3f4805b43c395014db8cd5ae271a629e, type: 3}
   _volume: 1
-  _playOnEnter: 1
+  _playOnEnter: 0
   _playOnExit: 0
-  _playDelayed: 0
-  _playDelay: 0.25
+  _playDelayed: 1
+  _playDelay: 0.2
 --- !u!114 &-6487236384808504798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -104,7 +104,7 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours:
   - {fileID: 1489604085925345707}
-  m_AnyStatePosition: {x: 50, y: -20, z: 0}
+  m_AnyStatePosition: {x: 420, y: 0, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 820, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 30, y: 30, z: 0}
