@@ -8,7 +8,7 @@ public class SetSFXBehavior : StateMachineBehaviour
 
     [SerializeField] private float _playDelay = 0.25f;
     private float _timeSinceStart = 0f;
-    private bool _hasDelayedAudioPlayed = false; 
+    private bool _hasDelayedAudioPlayed = false;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

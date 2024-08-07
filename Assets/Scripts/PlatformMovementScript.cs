@@ -10,6 +10,12 @@ public class PlatformMovementScript : MonoBehaviour
     [SerializeField] private float _movementSpeed = 3f;
     private readonly float _minDistance = 0.3f;
 
+    public Vector2 Velocity {
+        get {
+            return _rb.velocity;
+        }
+    }
+    
     void Awake() {
         _rb = GetComponent<Rigidbody2D>();
     }

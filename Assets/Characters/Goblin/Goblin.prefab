@@ -188,13 +188,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3309f238f3d509642b31b11f7d470b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundDistance: 0.05
-  wallDistance: 0.2
-  ceilingDistance: 0.05
+  _groundDistance: 0.05
+  _wallDistance: 0.2
+  _ceilingDistance: 0.05
+  _platformDistance: 0.05
   _isOnGround: 0
   _isOnWall: 0
   _isOnCeiling: 0
-  contactFilter:
+  _isOnPlatform: 0
+  _contactFilter:
     useTriggers: 0
     useLayerMask: 1
     useDepth: 0
@@ -208,7 +210,21 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  capsuleCollider: {fileID: 0}
+  _platformContactFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 16384
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  _capsuleCollider: {fileID: 0}
 --- !u!114 &1591334422569833048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da5bb8895f8bc8640a689ae8dd4dca82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runSpeed: 4
+  _runSpeed: 10
   _attackZone: {fileID: 8552721597088903896}
   _groundZone: {fileID: 8540390748349140477}
 --- !u!1 &672428150706645806
@@ -327,7 +343,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -7.2819734, y: 0.035979033}
+  m_Offset: {x: -7.23494, y: 0.035979033}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.47, y: 0.23}
@@ -338,7 +354,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.8492765, y: 2.3719592}
+  m_Size: {x: 3.8840284, y: 2.3719592}
   m_EdgeRadius: 0
 --- !u!114 &8552721597088903896
 MonoBehaviour:

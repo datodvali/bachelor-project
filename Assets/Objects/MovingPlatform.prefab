@@ -102,7 +102,7 @@ MonoBehaviour:
   _wayPoints:
   - {fileID: 0}
   - {fileID: 0}
-  _movementSpeed: 3
+  _movementSpeed: 5
 --- !u!50 &7823232277153947205
 Rigidbody2D:
   serializedVersion: 4

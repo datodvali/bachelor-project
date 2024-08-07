@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private bool _isMoving;
     private bool _isRunning;
     private Vector2 _moveInput;
+    private PlatformMovementScript _platform;
 
     public bool IsMoving {
         get {
@@ -66,10 +68,20 @@ public class PlayerController : MonoBehaviour
 
     private float CurrentSpeed {
         get {
-            if (!IsMoving || _touchDirections.IsOnWall) return 0;
+            float currSpeed;
+            
+            if (!IsMoving || _touchDirections.IsOnWall) currSpeed = 0;
+            else if (IsRunning) currSpeed = _runSpeed;
+            else currSpeed = _walkSpeed;
+            
             float multiplier = _hasSuperSpeed ? _superSpeedMultiplier : 1f;
-            if (IsMoving && IsRunning) return _runSpeed * multiplier;
-            return _walkSpeed * multiplier;
+            currSpeed *= multiplier * _moveInput.x;
+            
+            if (_touchDirections.IsOnPlatform) {
+                if (_platform == null) return currSpeed;
+                else currSpeed += _platform.Velocity.x;
+            }
+            return currSpeed;
         }
     }
 
@@ -83,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate() {
         if (!LockVelocity) {
-            _rigidBody.velocity = new Vector2(_moveInput.x * CurrentSpeed, _rigidBody.velocity.y);
+            _rigidBody.velocity = new Vector2(CurrentSpeed, _rigidBody.velocity.y);
         }
         _animator.SetFloat(AnimationNames.yVelocity, _rigidBody.velocity.y);
     }
@@ -186,5 +198,17 @@ public class PlayerController : MonoBehaviour
 
     void OnDisable() {
         _damageable.deathEvent.RemoveListener(OnDeath);
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.TryGetComponent<PlatformMovementScript>(out var platform)) {
+            _platform = platform;
+        }
+    }
+
+    public void OnCollisionExit2D(Collision2D collision) {
+        if (collision.gameObject.TryGetComponent<PlatformMovementScript>(out var platform)) {
+            _platform = null;
+        }
     }
 }

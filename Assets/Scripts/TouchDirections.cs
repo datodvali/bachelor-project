@@ -3,23 +3,26 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class TouchDirections : MonoBehaviour
 {
-    
-    [SerializeField] private float groundDistance = 0.05f;
-    [SerializeField] private float wallDistance = 0.2f;
-    [SerializeField] private float ceilingDistance = 0.05f;
+    [SerializeField] private float _groundDistance = 0.05f;
+    [SerializeField] private float _wallDistance = 0.2f;
+    [SerializeField] private float _ceilingDistance = 0.05f;
+    [SerializeField] private float _platformDistance = 0.05f;
 
     [SerializeField] private bool _isOnGround;
     [SerializeField] private bool _isOnWall;
     [SerializeField] private bool _isOnCeiling;
+    [SerializeField] private bool _isOnPlatform;
 
-    [SerializeField] private ContactFilter2D contactFilter;
+    [SerializeField] private ContactFilter2D _contactFilter;
+    [SerializeField] private ContactFilter2D _platformContactFilter;
     
-    [SerializeField] private CapsuleCollider2D capsuleCollider;
+    [SerializeField] private CapsuleCollider2D _capsuleCollider;
     private Animator _animator;
 
-    private RaycastHit2D[] groundHits = new RaycastHit2D[5];
-    private RaycastHit2D[] wallHits = new RaycastHit2D[5];
-    private RaycastHit2D[] ceilingHits = new RaycastHit2D[5];
+    private RaycastHit2D[] _groundHits = new RaycastHit2D[5];
+    private RaycastHit2D[] _wallHits = new RaycastHit2D[5];
+    private RaycastHit2D[] _ceilingHits = new RaycastHit2D[5];
+    private RaycastHit2D[] _platformHits = new RaycastHit2D[5];
 
     private Vector2 WallCheckDirection => gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left; 
 
@@ -53,14 +56,27 @@ public class TouchDirections : MonoBehaviour
         }
     }
 
+    public bool IsOnPlatform {
+        get {
+            return _isOnPlatform;
+        }
+        private set {
+            _isOnPlatform = value;
+            if (_isOnPlatform) {
+                IsOnGround = true;
+            }
+        }
+    }
+
     void Awake() {
-        capsuleCollider = GetComponent<CapsuleCollider2D>();
+        _capsuleCollider = GetComponent<CapsuleCollider2D>();
         _animator = GetComponent<Animator>();
     }
 
     void FixedUpdate() {
-        IsOnGround = capsuleCollider.Cast(Vector2.down, contactFilter, groundHits, groundDistance) > 0;
-        IsOnWall = capsuleCollider.Cast(WallCheckDirection, contactFilter, wallHits, wallDistance) > 0;
-        IsOnCeiling = capsuleCollider.Cast(Vector2.up, contactFilter, ceilingHits, ceilingDistance) > 0;
+        IsOnGround = _capsuleCollider.Cast(Vector2.down, _contactFilter, _groundHits, _groundDistance) > 0;
+        IsOnWall = _capsuleCollider.Cast(WallCheckDirection, _contactFilter, _wallHits, _wallDistance) > 0;
+        IsOnCeiling = _capsuleCollider.Cast(Vector2.up, _contactFilter, _ceilingHits, _ceilingDistance) > 0;
+        IsOnPlatform = _capsuleCollider.Cast(Vector2.down, _platformContactFilter, _platformHits, _platformDistance) > 0;
     }
 }

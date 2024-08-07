@@ -462,6 +462,7 @@ MonoBehaviour:
   _walkSpeed: 5
   _runSpeed: 12
   _jumpInitialSpeed: 11
+  hasSecondLife: 0
 --- !u!114 &6169564231260894538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,6 +612,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: bbc24473-03a5-4f91-abdd-0a6a33bd2c18
     m_ActionName: Player/RangedAttack[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5824f6f5-7dbc-4eb5-a98d-d5fc62eebb01
+    m_ActionName: UI/Escape[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -649,13 +654,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3309f238f3d509642b31b11f7d470b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundDistance: 0.05
-  wallDistance: 0.2
-  ceilingDistance: 0.05
+  _groundDistance: 0.05
+  _wallDistance: 0.2
+  _ceilingDistance: 0.05
+  _platformDistance: 0.05
   _isOnGround: 0
   _isOnWall: 0
   _isOnCeiling: 0
-  contactFilter:
+  _isOnPlatform: 0
+  _contactFilter:
     useTriggers: 0
     useLayerMask: 1
     useDepth: 0
@@ -669,7 +676,21 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  capsuleCollider: {fileID: 0}
+  _platformContactFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 16384
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  _capsuleCollider: {fileID: 0}
 --- !u!70 &3911672201931439957
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -741,6 +762,7 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   _isInvincible: 0
+  _invincibilityEffectPulsing: 0
   _invincibilityTimeOnHit: 1
 --- !u!114 &4429029177349775985
 MonoBehaviour:

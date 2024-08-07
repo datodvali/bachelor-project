@@ -202,10 +202,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3322413362081337585, guid: b4e2963b4c9a38f42bada381a0e300e6, type: 3}
-      propertyPath: _damage
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 6756336695488530528, guid: b4e2963b4c9a38f42bada381a0e300e6, type: 3}
       propertyPath: m_Name
       value: Spikes (4)
@@ -293,7 +289,7 @@ Transform:
   m_GameObject: {fileID: 110932029}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07, y: -0.91, z: -10}
+  m_LocalPosition: {x: 36.16, y: 4.19, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6837,10 +6833,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3322413362081337585, guid: b4e2963b4c9a38f42bada381a0e300e6, type: 3}
-      propertyPath: _damage
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 6756336695488530528, guid: b4e2963b4c9a38f42bada381a0e300e6, type: 3}
       propertyPath: m_Name
       value: Spikes (1)
@@ -6897,10 +6889,6 @@ PrefabInstance:
     - target: {fileID: 959430552932100254, guid: b4e2963b4c9a38f42bada381a0e300e6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3322413362081337585, guid: b4e2963b4c9a38f42bada381a0e300e6, type: 3}
-      propertyPath: _damage
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6756336695488530528, guid: b4e2963b4c9a38f42bada381a0e300e6, type: 3}
       propertyPath: m_Name
@@ -7078,7 +7066,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07, y: -0.91, z: -10}
+  m_LocalPosition: {x: 36.16, y: 4.19, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8193,6 +8181,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1995888883994363102, guid: 72c84b1578615be40bcb4f8415b11f6a, type: 3}
+      propertyPath: m_Size.x
+      value: 6.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1995888883994363102, guid: 72c84b1578615be40bcb4f8415b11f6a, type: 3}
+      propertyPath: m_Offset.x
+      value: -6.24
+      objectReference: {fileID: 0}
     - target: {fileID: 7141181625857283552, guid: 72c84b1578615be40bcb4f8415b11f6a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.4
@@ -8253,6 +8249,22 @@ PrefabInstance:
     - target: {fileID: 23206458430070082, guid: 5ff4de7bd6efdcf4d91205a62f00d7a4, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281997106646860616, guid: 5ff4de7bd6efdcf4d91205a62f00d7a4, type: 3}
+      propertyPath: _contactFilter.useLayerMask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281997106646860616, guid: 5ff4de7bd6efdcf4d91205a62f00d7a4, type: 3}
+      propertyPath: _contactFilter.layerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281997106646860616, guid: 5ff4de7bd6efdcf4d91205a62f00d7a4, type: 3}
+      propertyPath: _platformContactFilter.useLayerMask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281997106646860616, guid: 5ff4de7bd6efdcf4d91205a62f00d7a4, type: 3}
+      propertyPath: _platformContactFilter.layerMask.m_Bits
+      value: 16384
       objectReference: {fileID: 0}
     - target: {fileID: 8480120276910208897, guid: 5ff4de7bd6efdcf4d91205a62f00d7a4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8407,10 +8419,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5348663579666110417, guid: 55c2604acca0cdb429f0f5d7150e1882, type: 3}
-      propertyPath: _movementSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5348663579666110417, guid: 55c2604acca0cdb429f0f5d7150e1882, type: 3}
       propertyPath: _wayPoints.Array.data[0]
       value: 
       objectReference: {fileID: 531412433}
@@ -8421,6 +8429,10 @@ PrefabInstance:
     - target: {fileID: 6416914422900164719, guid: 55c2604acca0cdb429f0f5d7150e1882, type: 3}
       propertyPath: m_Name
       value: MovingPlatform (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416914422900164719, guid: 55c2604acca0cdb429f0f5d7150e1882, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7664229175104445234, guid: 55c2604acca0cdb429f0f5d7150e1882, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8886,10 +8898,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3322413362081337585, guid: b4e2963b4c9a38f42bada381a0e300e6, type: 3}
-      propertyPath: _damage
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 6756336695488530528, guid: b4e2963b4c9a38f42bada381a0e300e6, type: 3}
       propertyPath: m_Name
       value: Spikes (2)
@@ -9016,11 +9024,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2809691540629474409, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.07
+      value: 36.16
       objectReference: {fileID: 0}
     - target: {fileID: 2809691540629474409, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.91
+      value: 4.19
       objectReference: {fileID: 0}
     - target: {fileID: 2809691540629474409, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9662,10 +9670,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3322413362081337585, guid: b4e2963b4c9a38f42bada381a0e300e6, type: 3}
-      propertyPath: _damage
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 6756336695488530528, guid: b4e2963b4c9a38f42bada381a0e300e6, type: 3}
       propertyPath: m_Name
       value: Spikes
@@ -9686,14 +9690,6 @@ PrefabInstance:
     - target: {fileID: 3739147952245795046, guid: 4bde554bea4cfa34fbbcc1c3abd79563, type: 3}
       propertyPath: m_Name
       value: BunchOfCoins
-      objectReference: {fileID: 0}
-    - target: {fileID: 3915784472493257180, guid: 4bde554bea4cfa34fbbcc1c3abd79563, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3915784472493257180, guid: 4bde554bea4cfa34fbbcc1c3abd79563, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 3915784472493257180, guid: 4bde554bea4cfa34fbbcc1c3abd79563, type: 3}
       propertyPath: m_LocalPosition.x
