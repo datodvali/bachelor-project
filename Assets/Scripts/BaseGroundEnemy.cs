@@ -14,13 +14,16 @@ public class BaseGroundEnemy : MonoBehaviour {
     public enum Direction { RIGHT, LEFT }
     private Direction _moveDirection = Direction.RIGHT;
     private bool _hasTarget = false;
+    private PlatformMovementScript _platform;
 
-    protected virtual float CurrentSpeed
+    protected virtual float CurrXVelocity
     {
         get
         {
             if (!_damageable.IsAlive) return 0;
-            return _runSpeed;
+            float currXVelocity = _runSpeed * (MoveDirection == Direction.RIGHT ? 1 : -1);
+            if (_touchDirections.IsOnPlatform && _platform != null) currXVelocity += _platform.Velocity.x;
+            return currXVelocity;
         }
     }
 
@@ -57,6 +60,7 @@ public class BaseGroundEnemy : MonoBehaviour {
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _touchDirections = GetComponent<TouchDirections>();
+        Debug.Log(_touchDirections == null);
         _animator = GetComponent<Animator>();
         _damageable = GetComponent<Damageable>();
     }
@@ -82,8 +86,7 @@ public class BaseGroundEnemy : MonoBehaviour {
         {
             ChangeDirection();
         }
-        float moveSpeed = CurrentSpeed * (MoveDirection == Direction.RIGHT ? 1 : -1);
-        _rigidBody.velocity = new Vector2(moveSpeed, _rigidBody.velocity.y);
+        _rigidBody.velocity = new Vector2(CurrXVelocity, _rigidBody.velocity.y);
     }
 
     protected virtual void ChangeDirection()
@@ -101,6 +104,18 @@ public class BaseGroundEnemy : MonoBehaviour {
         if (_touchDirections.IsOnGround)
         {
             ChangeDirection();
+        }
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.TryGetComponent<PlatformMovementScript>(out var platform)) {
+            _platform = platform;
+        }
+    }
+
+    public void OnCollisionExit2D(Collision2D collision) {
+        if (collision.gameObject.TryGetComponent<PlatformMovementScript>(out var platform)) {
+            _platform = null;
         }
     }
 }

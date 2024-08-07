@@ -188,13 +188,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3309f238f3d509642b31b11f7d470b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundDistance: 0.05
-  wallDistance: 0.2
-  ceilingDistance: 0.05
+  _groundDistance: 0.05
+  _wallDistance: 0.2
+  _ceilingDistance: 0.05
+  _platformDistance: 0.05
   _isOnGround: 0
   _isOnWall: 0
   _isOnCeiling: 0
-  contactFilter:
+  _isOnPlatform: 0
+  _contactFilter:
     useTriggers: 0
     useLayerMask: 1
     useDepth: 0
@@ -208,7 +210,21 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  capsuleCollider: {fileID: 0}
+  _platformContactFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 16384
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  _capsuleCollider: {fileID: 0}
 --- !u!114 &930467803976926864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,7 +354,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.3067837}
+  m_Size: {x: 1, y: 2.59}
   m_EdgeRadius: 0
 --- !u!114 &5056154603084054586
 MonoBehaviour:
@@ -355,7 +371,7 @@ MonoBehaviour:
   noCollidersRemaining:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7459111530686592202}
         m_TargetAssemblyTypeName: BaseGroundEnemy, Assembly-CSharp
         m_MethodName: CliffDetected
         m_Mode: 1

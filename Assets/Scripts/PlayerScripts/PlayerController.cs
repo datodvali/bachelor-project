@@ -66,22 +66,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private float CurrentSpeed {
+    private float CurrentXVelocity {
         get {
-            float currSpeed;
+            float currXVelocity;
             
-            if (!IsMoving || _touchDirections.IsOnWall) currSpeed = 0;
-            else if (IsRunning) currSpeed = _runSpeed;
-            else currSpeed = _walkSpeed;
+            if (!IsMoving || _touchDirections.IsOnWall) currXVelocity = 0;
+            else if (IsRunning) currXVelocity = _runSpeed;
+            else currXVelocity = _walkSpeed;
             
             float multiplier = _hasSuperSpeed ? _superSpeedMultiplier : 1f;
-            currSpeed *= multiplier * _moveInput.x;
+            currXVelocity *= multiplier * _moveInput.x;
             
-            if (_touchDirections.IsOnPlatform) {
-                if (_platform == null) return currSpeed;
-                else currSpeed += _platform.Velocity.x;
-            }
-            return currSpeed;
+            if (_touchDirections.IsOnPlatform && _platform != null) currXVelocity += _platform.Velocity.x;
+            return currXVelocity;
         }
     }
 
@@ -95,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate() {
         if (!LockVelocity) {
-            _rigidBody.velocity = new Vector2(CurrentSpeed, _rigidBody.velocity.y);
+            _rigidBody.velocity = new Vector2(CurrentXVelocity, _rigidBody.velocity.y);
         }
         _animator.SetFloat(AnimationNames.yVelocity, _rigidBody.velocity.y);
     }
