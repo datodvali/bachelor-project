@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool _facingRight = true;
     private bool _isMoving;
     private bool _isRunning;
+    private bool _readyForRun;
     private Vector2 _moveInput;
     private PlatformMovementScript _platform;
 
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
     public bool IsRunning {
         get {
+            if (_isRunning == false) Debug.Log(_isRunning);
             return _isRunning;
         }
         private set {
@@ -104,14 +106,17 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context) {
         _moveInput = context.ReadValue<Vector2>();
         IsMoving = _moveInput != Vector2.zero;
+        if (IsMoving && _readyForRun) IsRunning = true;
         ChangeDirection(_moveInput);
     }
 
     public void OnRun(InputAction.CallbackContext context) {
         if (context.started) {
-            IsRunning = true;
+            _readyForRun = true;
+            if (IsMoving) IsRunning = true;
         } else if (context.canceled) {
-            IsRunning = false;            
+            _readyForRun = false;
+            IsRunning = false;          
         }
     }
 
