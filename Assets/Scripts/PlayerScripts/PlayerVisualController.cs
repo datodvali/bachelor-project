@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class PlayerVisualController : MonoBehaviour
@@ -45,7 +44,6 @@ public class PlayerVisualController : MonoBehaviour
 
     public void StopPulsing() {
         _pulsingEffects--;
-        Debug.Log(_pulsingEffects);
         if (_pulsingEffects == 0 && _pulseCoroutine != null) {
             StopCoroutine(_pulseCoroutine);
             _pulseCoroutine = null;

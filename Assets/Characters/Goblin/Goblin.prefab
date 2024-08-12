@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3366811087091510745}
   - component: {fileID: 1591334422569833048}
   - component: {fileID: 3796013894346871001}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Goblin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -7.23494, y: 0.035979033}
+  m_Offset: {x: -7.267914, y: 0.035979033}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.47, y: 0.23}
@@ -354,7 +354,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.8840284, y: 2.3719592}
+  m_Size: {x: 2.7614136, y: 2.3719592}
   m_EdgeRadius: 0
 --- !u!114 &8552721597088903896
 MonoBehaviour:
@@ -571,5 +571,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f3939e44626bb45a74e4207e6bdf21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _knockBack: {x: 6, y: 3}
+  _knockBack: {x: 0, y: 3}
   _damage: 50

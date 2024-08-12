@@ -460,8 +460,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _walkSpeed: 5
-  _runSpeed: 12
-  _jumpInitialSpeed: 11
+  _runSpeed: 10
+  _jumpInitialSpeed: 12
   hasSecondLife: 0
 --- !u!114 &6169564231260894538
 MonoBehaviour:

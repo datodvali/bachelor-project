@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool _readyForRun;
     private Vector2 _moveInput;
     private PlatformMovementScript _platform;
+    private readonly string _layerToCheck = "Platform";
 
     public bool IsMoving {
         get {
@@ -38,7 +39,6 @@ public class PlayerController : MonoBehaviour
 
     public bool IsRunning {
         get {
-            if (_isRunning == false) Debug.Log(_isRunning);
             return _isRunning;
         }
         private set {
@@ -203,14 +203,19 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.TryGetComponent<PlatformMovementScript>(out var platform)) {
-            _platform = platform;
+        if (LayerMask.NameToLayer(_layerToCheck) == collision.gameObject.layer) {
+            
+            if (collision.gameObject.TryGetComponent<PlatformMovementScript>(out var platform)) {
+                _platform = platform;
+            }
         }
     }
 
     public void OnCollisionExit2D(Collision2D collision) {
-        if (collision.gameObject.TryGetComponent<PlatformMovementScript>(out var platform)) {
-            _platform = null;
+        if (LayerMask.NameToLayer(_layerToCheck) == collision.gameObject.layer) {
+            if (collision.gameObject.TryGetComponent<PlatformMovementScript>(out var platform)) {
+                _platform = null;
+            }
         }
     }
 }

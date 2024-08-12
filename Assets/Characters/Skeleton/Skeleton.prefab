@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 7656716062794665718}
   - component: {fileID: 1439760254696122107}
   - component: {fileID: 5023364690137512865}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SwordAttackZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

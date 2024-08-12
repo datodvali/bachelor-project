@@ -15,7 +15,6 @@ public class LevelCompleteScript : MonoBehaviour {
     }
 
     private void HandleLevelCompleted() {
-        Debug.Log("Level completed");
         UpdateBestTimeIfNeeded();
         UpdateMostCoinsIfNeeded();
     }

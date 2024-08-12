@@ -60,13 +60,13 @@ public class BaseGroundEnemy : MonoBehaviour {
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _touchDirections = GetComponent<TouchDirections>();
-        Debug.Log(_touchDirections == null);
         _animator = GetComponent<Animator>();
         _damageable = GetComponent<Damageable>();
     }
 
     protected virtual void Start()
     {
+        _runSpeed *= transform.localScale.x;
         _animator.SetBool(AnimationNames.isMoving, true);
     }
 
