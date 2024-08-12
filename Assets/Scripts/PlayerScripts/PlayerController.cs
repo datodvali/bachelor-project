@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     private bool _readyForRun;
     private readonly float _coyoteTime = 0.1f;
     private float _timeInAir = 0f; 
+    private readonly float _jumpBufferDuration = 0.2f;
+    private float _jumpBufferTimer = 0f;
     private bool _jumped = false;
     private Vector2 _moveInput;
     private PlatformMovementScript _platform;
@@ -103,16 +105,25 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update() {
-        CheckGround();
+        CheckCoyoteTime();
+        CheckJumpBuffer();
         CheckSuperSpeed();
     }
 
-    public void CheckGround() {
+    public void CheckCoyoteTime() {
         if (_touchDirections.IsOnGround && _timeInAir > 0) {
             _timeInAir = 0;
             _jumped = false;
         } else if (!_touchDirections.IsOnGround) {
             _timeInAir += Time.deltaTime;
+        }
+    }
+
+    public void CheckJumpBuffer() {
+        if (!_touchDirections.IsOnGround && _jumpBufferTimer > 0) {
+            _jumpBufferTimer -= Time.deltaTime;
+        } else if (_touchDirections.IsOnGround && _jumpBufferTimer > 0) {
+            Jump();
         }
     }
 
@@ -134,11 +145,22 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnJump(InputAction.CallbackContext context) {
-        if (context.started && (_touchDirections.IsOnGround || (_timeInAir < _coyoteTime && !_jumped))) {
-            _animator.SetTrigger(AnimationNames.jump);
-            _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, _jumpInitialSpeed);
-            _jumped = true;
+        if (context.started && (_touchDirections.IsOnGround || IsCoyoteTime())) {
+            Jump();
+        } else {
+            _jumpBufferTimer = _jumpBufferDuration;
         }
+    }
+
+    private void Jump() {
+        _animator.SetTrigger(AnimationNames.jump);
+        _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, _jumpInitialSpeed);
+        _jumped = true;
+        _jumpBufferTimer = 0;
+    }
+
+    private bool IsCoyoteTime() {
+        return _timeInAir < _coyoteTime && !_jumped;
     }
 
     public void OnAttack(InputAction.CallbackContext context) {
