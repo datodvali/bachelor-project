@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
     private bool _isMoving;
     private bool _isRunning;
     private bool _readyForRun;
+    private readonly float _coyoteTime = 0.1f;
+    private float _timeInAir = 0f; 
+    private bool _jumped = false;
     private Vector2 _moveInput;
     private PlatformMovementScript _platform;
     private readonly string _layerToCheck = "Platform";
@@ -100,7 +103,17 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update() {
+        CheckGround();
         CheckSuperSpeed();
+    }
+
+    public void CheckGround() {
+        if (_touchDirections.IsOnGround && _timeInAir > 0) {
+            _timeInAir = 0;
+            _jumped = false;
+        } else if (!_touchDirections.IsOnGround) {
+            _timeInAir += Time.deltaTime;
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context) {
@@ -121,9 +134,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnJump(InputAction.CallbackContext context) {
-        if (context.started && _touchDirections.IsOnGround) {
+        if (context.started && (_touchDirections.IsOnGround || (_timeInAir < _coyoteTime && !_jumped))) {
             _animator.SetTrigger(AnimationNames.jump);
             _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, _jumpInitialSpeed);
+            _jumped = true;
         }
     }
 
