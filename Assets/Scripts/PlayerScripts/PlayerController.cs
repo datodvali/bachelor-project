@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _walkSpeed = 5f;
     [SerializeField] private float _runSpeed = 12f;
     [SerializeField] private float _jumpInitialSpeed = 10f;
+    [SerializeField] private float _climbSpeed = 4f;
     private float _superSpeedTimeRemaining = 0f;
     private readonly float _superSpeedMultiplier = 1.3f;
     private bool _superSpeedEffectPulsing = false;
@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     private bool _facingRight = true;
     private bool _isMoving;
     private bool _isRunning;
+    private bool _isClimbing;
+    private bool _isOnWallHang;
     private bool _readyForRun;
     private readonly float _coyoteTime = 0.1f;
     private float _timeInAir = 0f; 
@@ -49,6 +51,26 @@ public class PlayerController : MonoBehaviour
         private set {
             _isRunning = value;
             _animator.SetBool(AnimationNames.isRunning, value);
+        }
+    }
+
+    public bool IsClimbing {
+        get {
+            return _isClimbing;
+        }
+        private set {
+            _isClimbing = value;
+            _animator.SetBool(AnimationNames.isClimbing, value);
+        }
+    }
+
+    public bool IsOnWallHang {
+        get {
+            return _isOnWallHang;
+        }
+        private set {
+            _isOnWallHang = value;
+            _animator.SetBool(AnimationNames.isOnWallHang, value);
         }
     }
 
@@ -89,6 +111,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private float CurrentYVelocity {
+        get {
+            if (IsClimbing) {
+                return _climbSpeed * _moveInput.y;
+            } else if (IsOnWallHang) {
+                return 0;
+            } else {
+                return _rigidBody.velocity.y;
+            }
+        }
+    }
+
     void Awake() {
         _rigidBody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
@@ -99,7 +133,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate() {
         if (!LockVelocity) {
-            _rigidBody.velocity = new Vector2(CurrentXVelocity, _rigidBody.velocity.y);
+            _rigidBody.velocity = new Vector2(CurrentXVelocity, CurrentYVelocity);
         }
         _animator.SetFloat(AnimationNames.yVelocity, _rigidBody.velocity.y);
     }
@@ -108,30 +142,30 @@ public class PlayerController : MonoBehaviour
         CheckCoyoteTime();
         CheckJumpBuffer();
         CheckSuperSpeed();
-    }
-
-    public void CheckCoyoteTime() {
-        if (_touchDirections.IsOnGround && _timeInAir > 0) {
-            _timeInAir = 0;
-            _jumped = false;
-        } else if (!_touchDirections.IsOnGround) {
-            _timeInAir += Time.deltaTime;
-        }
-    }
-
-    public void CheckJumpBuffer() {
-        if (!_touchDirections.IsOnGround && _jumpBufferTimer > 0) {
-            _jumpBufferTimer -= Time.deltaTime;
-        } else if (_touchDirections.IsOnGround && _jumpBufferTimer > 0) {
-            Jump();
-        }
+        CheckClimbing();
     }
 
     public void OnMove(InputAction.CallbackContext context) {
         _moveInput = context.ReadValue<Vector2>();
-        IsMoving = _moveInput != Vector2.zero;
-        if (IsMoving && _readyForRun) IsRunning = true;
-        ChangeDirection(_moveInput);
+        IsMoving = _moveInput.x != 0;
+        if (!IsOnWallHang) {
+            ChangeDirection(_moveInput.x);
+            if (IsMoving && _readyForRun) IsRunning = true;
+        }
+        else OnClimb(_moveInput.y);
+    }
+
+    private void OnClimb(float inputY) {
+        if (inputY != 0 && IsOnWallHang) IsClimbing = true;
+        else IsClimbing = false;
+    }
+
+    public void OnWallHang(InputAction.CallbackContext context) {
+        if (context.started && _touchDirections.IsOnWall) {
+            IsOnWallHang = true;
+        } else if (context.canceled) {
+            IsOnWallHang = false;
+        }
     }
 
     public void OnRun(InputAction.CallbackContext context) {
@@ -145,7 +179,8 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnJump(InputAction.CallbackContext context) {
-        if (context.started && (_touchDirections.IsOnGround || IsCoyoteTime())) {
+        if (!context.started) return;
+        if (_touchDirections.IsOnGround || IsOnWallHang || IsCoyoteTime()) {
             Jump();
         } else {
             _jumpBufferTimer = _jumpBufferDuration;
@@ -153,8 +188,18 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Jump() {
+        if (IsOnWallHang) WallJump();
         _animator.SetTrigger(AnimationNames.jump);
         _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, _jumpInitialSpeed);
+        _jumped = true;
+        _jumpBufferTimer = 0;
+    }
+
+    private void WallJump() {
+        if (IsClimbing) IsClimbing = false;
+        if (IsOnWallHang) IsOnWallHang = false;
+         _animator.SetTrigger(AnimationNames.jump);
+        _rigidBody.velocity = new Vector2(_moveInput.x, _jumpInitialSpeed);
         _jumped = true;
         _jumpBufferTimer = 0;
     }
@@ -175,10 +220,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ChangeDirection(Vector2 moveInput) {
-        if (moveInput.x > 0 && !_facingRight) {
+    private void ChangeDirection(float inputX) {
+        if (inputX > 0 && !_facingRight) {
             FacingRight = true;
-        } else if (moveInput.x < 0 && _facingRight) {
+        } else if (inputX < 0 && _facingRight) {
             FacingRight = false;
         }
     }
@@ -210,6 +255,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void CheckCoyoteTime() {
+        if (_touchDirections.IsOnGround && _timeInAir > 0) {
+            _timeInAir = 0;
+            _jumped = false;
+        } else if (!_touchDirections.IsOnGround) {
+            _timeInAir += Time.deltaTime;
+        }
+    }
+
+    public void CheckJumpBuffer() {
+        if (!_touchDirections.IsOnGround && _jumpBufferTimer > 0) {
+            _jumpBufferTimer -= Time.deltaTime;
+        } else if (_touchDirections.IsOnGround && _jumpBufferTimer > 0) {
+            Jump();
+        }
+    }
+
     private void CheckSuperSpeed() {
         if (!_hasSuperSpeed) return;
         _superSpeedTimeRemaining -= Time.deltaTime;
@@ -220,6 +282,12 @@ public class PlayerController : MonoBehaviour
             _superSpeedEffectPulsing = false;
         } else {
             ApplyPulseEffectIfNecessary();
+        }
+    }
+
+    private void CheckClimbing() {
+        if (IsClimbing && !_touchDirections.IsOnWall) {
+            IsClimbing = false;
         }
     }
 

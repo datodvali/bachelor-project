@@ -435,7 +435,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1.8
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -461,7 +461,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _walkSpeed: 5
   _runSpeed: 10
-  _jumpInitialSpeed: 12
+  _jumpInitialSpeed: 16
+  _climbSpeed: 4
   hasSecondLife: 0
 --- !u!114 &6169564231260894538
 MonoBehaviour:
@@ -655,7 +656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _groundDistance: 0.05
-  _wallDistance: 0.2
+  _wallDistance: 0.1
   _ceilingDistance: 0.05
   _platformDistance: 0.05
   _isOnGround: 0
