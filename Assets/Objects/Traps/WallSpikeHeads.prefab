@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6020624753674331367}
   - component: {fileID: 3322413362081337585}
   m_Layer: 10
-  m_Name: SpikeHeads
+  m_Name: WallSpikeHeads
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6756336695488530528}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.87, y: -9.07, z: -0.03826423}
+  m_LocalRotation: {x: 0.0041220435, y: -0.012328369, z: 0.7070948, w: 0.7069993}
+  m_LocalPosition: {x: 10.859049, y: -9.081107, z: -0.038414177}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 1.333, y: -0.665, z: 90}
 --- !u!212 &7569408627643838595
 SpriteRenderer:
   m_ObjectHideFlags: 0
