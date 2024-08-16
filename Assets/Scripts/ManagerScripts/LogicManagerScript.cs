@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class LogicManagerScript : MonoBehaviour
@@ -69,6 +68,7 @@ public class LogicManagerScript : MonoBehaviour
         GameEvents.gameResumed += GameResumedHandler;
         GameEvents.gameOver += GameOverHandler;
         GameEvents.levelComplete += GamePausedHandler;
+        GameEvents.gameComplete += GamePausedHandler;
         GameEvents.levelStarted.Invoke();
     }
 
@@ -79,5 +79,6 @@ public class LogicManagerScript : MonoBehaviour
         GameEvents.gameResumed -= GameResumedHandler;
         GameEvents.gameOver -= GameOverHandler;
         GameEvents.levelComplete -= GamePausedHandler;
+        GameEvents.gameComplete -= GamePausedHandler;
     }
 }

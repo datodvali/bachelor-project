@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Collider2D))]
 public class LevelGoalScript : MonoBehaviour
 {
-    
+
+    private readonly int _numberOfLevels = 3;
+
     private Collider2D _collider;
 
     void Awake() {
@@ -11,9 +14,12 @@ public class LevelGoalScript : MonoBehaviour
     }
 
     public void OnTriggerEnter2D(Collider2D collider) {
-        Debug.Log("123123");
         if (collider.TryGetComponent<PlayerController>(out var player)) {
-            GameEvents.levelComplete.Invoke();
+            if (SceneManager.GetActiveScene().buildIndex > _numberOfLevels) {
+                GameEvents.gameComplete.Invoke();
+            } else {
+                GameEvents.levelComplete.Invoke();
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ public class PauseScreenScript : MonoBehaviour
     }
 
     public void OnMainMenuHit() {
-        GameEvents.gameResumed();
         SceneManager.LoadScene(_startScreenName);
+        // GameEvents.gameResumed();
     }
 }

@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     private readonly string _pauseScreenTag = "PauseScreen";
     private readonly string _deathScreenTag = "DeathScreen";
     private readonly string _levelCompleteScreenTag = "LevelCompleteScreen";
+    private readonly string _gameCompleteScreenTag = "GameCompleteScreen";
     [SerializeField] GameObject _healTextPrefab;
     [SerializeField] GameObject _damageTextPrefab;
     [SerializeField] GameObject _secondLifeTextPrefab;
@@ -16,19 +17,21 @@ public class UIManager : MonoBehaviour
     private GameObject _pauseScreen;
     private GameObject _deathScreen;
     private GameObject _levelCompleteScreen;
+    private GameObject _gameCompleteScreen;
 
     void Awake() {
         _gameCanvas = FindObjectOfType<Canvas>();
         _pauseScreen = FindByTag(_pauseScreenTag);
         _deathScreen = FindByTag(_deathScreenTag);
         _levelCompleteScreen = FindByTag(_levelCompleteScreenTag);
+        _gameCompleteScreen = FindByTag(_gameCompleteScreenTag);
     }
 
     private GameObject FindByTag(string screenTag) {
         GameObject screen = _gameCanvas.GetComponentsInChildren<RectTransform>(true).FirstOrDefault(t => t.CompareTag(screenTag))?.gameObject;
 
         if (screen == null) {
-            Debug.LogError("PauseScreen not found!");
+            Debug.LogError($"{screenTag} could not be found");
         }
         return screen;
     }
@@ -41,6 +44,7 @@ public class UIManager : MonoBehaviour
         GameEvents.gameResumed += GameResumedHandler;
         GameEvents.gameOver += GameOverHandler;
         GameEvents.levelComplete += LevelCompleteHandler;
+        GameEvents.gameComplete += GameCompleteHandler;
     }
 
     private void OnDisable() {
@@ -51,6 +55,7 @@ public class UIManager : MonoBehaviour
         GameEvents.gameResumed -= GameResumedHandler;
         GameEvents.gameOver -= GameOverHandler;
         GameEvents.levelComplete -= LevelCompleteHandler;
+        GameEvents.gameComplete -= GameCompleteHandler;
     }
 
     private void CharacterHealedHandler(GameObject character, float heal) {
@@ -90,6 +95,10 @@ public class UIManager : MonoBehaviour
 
     private void LevelCompleteHandler() {
         _levelCompleteScreen.SetActive(true);
+    }
+
+    private void GameCompleteHandler() {
+        _gameCompleteScreen.SetActive(true);
     }
 
     public void OnEscape(InputAction.CallbackContext context) {
