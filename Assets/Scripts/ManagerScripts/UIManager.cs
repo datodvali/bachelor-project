@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     private readonly string _pauseScreenTag = "PauseScreen";
     private readonly string _deathScreenTag = "DeathScreen";
+    private readonly string _levelCompleteScreenTag = "LevelCompleteScreen";
     [SerializeField] GameObject _healTextPrefab;
     [SerializeField] GameObject _damageTextPrefab;
     [SerializeField] GameObject _secondLifeTextPrefab;
@@ -14,27 +15,22 @@ public class UIManager : MonoBehaviour
     private bool _gamePaused = false;
     private GameObject _pauseScreen;
     private GameObject _deathScreen;
+    private GameObject _levelCompleteScreen;
 
     void Awake() {
         _gameCanvas = FindObjectOfType<Canvas>();
-        FindPauseScreen();
-        FindDeathScreen();
+        _pauseScreen = FindByTag(_pauseScreenTag);
+        _deathScreen = FindByTag(_deathScreenTag);
+        _levelCompleteScreen = FindByTag(_levelCompleteScreenTag);
     }
 
-    private void FindPauseScreen() {
-        _pauseScreen = _gameCanvas.GetComponentsInChildren<RectTransform>(true).FirstOrDefault(t => t.CompareTag(_pauseScreenTag))?.gameObject;
+    private GameObject FindByTag(string screenTag) {
+        GameObject screen = _gameCanvas.GetComponentsInChildren<RectTransform>(true).FirstOrDefault(t => t.CompareTag(screenTag))?.gameObject;
 
-        if (_pauseScreen == null) {
+        if (screen == null) {
             Debug.LogError("PauseScreen not found!");
         }
-    }
-
-    private void FindDeathScreen() {
-        _deathScreen = _gameCanvas.GetComponentsInChildren<RectTransform>(true).FirstOrDefault(t => t.CompareTag(_deathScreenTag))?.gameObject;
-
-        if (_deathScreen == null) {
-            Debug.LogError("DeathScreen not found!");
-        }
+        return screen;
     }
 
     private void OnEnable() {
@@ -43,7 +39,8 @@ public class UIManager : MonoBehaviour
         CharacterEvents.secondLifeGained += SecondLifeGainedHandler;
         GameEvents.gamePaused += GamePausedHandler;
         GameEvents.gameResumed += GameResumedHandler;
-        GameEvents.gameOver += GameEndedHandler;
+        GameEvents.gameOver += GameOverHandler;
+        GameEvents.levelComplete += LevelCompleteHandler;
     }
 
     private void OnDisable() {
@@ -52,7 +49,8 @@ public class UIManager : MonoBehaviour
         CharacterEvents.secondLifeGained -= SecondLifeGainedHandler;
         GameEvents.gamePaused -= GamePausedHandler;
         GameEvents.gameResumed -= GameResumedHandler;
-        GameEvents.gameOver -= GameEndedHandler;
+        GameEvents.gameOver -= GameOverHandler;
+        GameEvents.levelComplete -= LevelCompleteHandler;
     }
 
     private void CharacterHealedHandler(GameObject character, float heal) {
@@ -86,8 +84,12 @@ public class UIManager : MonoBehaviour
         _pauseScreen.SetActive(false);
     }
 
-    private void GameEndedHandler() {
+    private void GameOverHandler() {
         _deathScreen.SetActive(true);
+    }
+
+    private void LevelCompleteHandler() {
+        _levelCompleteScreen.SetActive(true);
     }
 
     public void OnEscape(InputAction.CallbackContext context) {

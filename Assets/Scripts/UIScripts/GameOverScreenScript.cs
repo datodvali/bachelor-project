@@ -7,7 +7,7 @@ public class GameOverScreenScript : MonoBehaviour
     
     public void OnRestartLevelHit() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        GameEvents.gameStarted.Invoke();
+        GameEvents.levelStarted.Invoke();
     }
 
     public void OnMainMenuHit() {

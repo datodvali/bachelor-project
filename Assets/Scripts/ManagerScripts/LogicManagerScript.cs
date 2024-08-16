@@ -43,7 +43,7 @@ public class LogicManagerScript : MonoBehaviour
         NumCoins += numCoins;
     }
 
-    private void GameStartedHandler() {
+    private void LevelStartedHandler() {
         GameOn = true;
         NumCoins = 0;
         Time.timeScale = 1;
@@ -64,18 +64,20 @@ public class LogicManagerScript : MonoBehaviour
 
     void OnEnable() {
         CharacterEvents.coinsClaimed += OnGetCoins;
-        GameEvents.gameStarted += GameStartedHandler;
+        GameEvents.levelStarted += LevelStartedHandler;
         GameEvents.gamePaused += GamePausedHandler;
         GameEvents.gameResumed += GameResumedHandler;
         GameEvents.gameOver += GameOverHandler;
-        GameEvents.gameStarted.Invoke();
+        GameEvents.levelComplete += GamePausedHandler;
+        GameEvents.levelStarted.Invoke();
     }
 
     void OnDisable() {
         CharacterEvents.coinsClaimed -= OnGetCoins;
-        GameEvents.gameStarted -= GameStartedHandler;
+        GameEvents.levelStarted -= LevelStartedHandler;
         GameEvents.gamePaused -= GamePausedHandler;
         GameEvents.gameResumed -= GameResumedHandler;
         GameEvents.gameOver -= GameOverHandler;
+        GameEvents.levelComplete -= GamePausedHandler;
     }
 }

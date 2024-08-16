@@ -38,11 +38,11 @@ public class LevelTimer : MonoBehaviour
     }
 
     void OnEnable() {
-        GameEvents.gameStarted += OnStart;
+        GameEvents.levelStarted += OnStart;
     }
 
 
     void OnDisable() {
-        GameEvents.gameStarted -= OnStart;
+        GameEvents.levelStarted -= OnStart;
     }
 }
