@@ -49,6 +49,7 @@ public class LogicManagerScript : MonoBehaviour
     }
 
     private void GameOverHandler() {
+        PlayerPrefs.DeleteAll();
         GameOn = false;
         GamePausedHandler();
     }

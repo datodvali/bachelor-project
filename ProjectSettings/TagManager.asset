@@ -8,6 +8,15 @@ TagManager:
   - DeathScreen
   - LevelCompleteScreen
   - GameCompleteScreen
+  - ButtonLevel1
+  - ButtonLevel2
+  - ButtonLevel3
+  - BestTimeLevel1
+  - BestTimeLevel2
+  - BestTimeLevel3
+  - MostCoinsLevel1
+  - MostCoinsLevel2
+  - MostCoinsLevel3
   layers:
   - Default
   - TransparentFX

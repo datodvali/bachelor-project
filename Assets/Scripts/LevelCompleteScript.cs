@@ -3,24 +3,20 @@ using UnityEngine.SceneManagement;
 
 public class LevelCompleteScript : MonoBehaviour {
 
-    private readonly string SavedTimeKey = "BestTime{0}";
-    private readonly string SavedCoinsKey = "MostCoins{0}";
-
-    private string GetSavedTimeKey() {
-        return string.Format(SavedTimeKey, SceneManager.GetActiveScene().name);
-    }
-
-    private string GetSavedCoinsKey() {
-        return string.Format(SavedCoinsKey, SceneManager.GetActiveScene().name);
-    }
+    public static readonly string BestTimeKey = "BestTime{0}";
+    public static readonly string MostCoinsKey = "MostCoins{0}";
+    public static readonly string LevelUnlockedKey = "Unlocked{0}";
+    private readonly int _numberOfLevels = 3;
 
     private void HandleLevelCompleted() {
         UpdateBestTimeIfNeeded();
         UpdateMostCoinsIfNeeded();
+        UnlockNewLevelIfNeeded();
+        PlayerPrefs.Save();
     }
 
     private void UpdateBestTimeIfNeeded() {
-        string levelBestTimeKey = GetSavedTimeKey();
+        string levelBestTimeKey = string.Format(BestTimeKey, SceneManager.GetActiveScene().buildIndex);
         float prevBestTime = PlayerPrefs.GetFloat(levelBestTimeKey);
         float currTime = LevelTimer.Instance.GetElapsedTime();
         if (prevBestTime == 0 || prevBestTime > currTime) {
@@ -29,12 +25,21 @@ public class LevelCompleteScript : MonoBehaviour {
     }
 
     private void UpdateMostCoinsIfNeeded() {
-        string levelMostCoinsKey = GetSavedCoinsKey();
-        float prevMostCoins = PlayerPrefs.GetFloat(levelMostCoinsKey);
-        float currCoins = LogicManagerScript.Instance.NumCoins;
+        string levelMostCoinsKey = string.Format(MostCoinsKey, SceneManager.GetActiveScene().buildIndex);
+        int prevMostCoins = PlayerPrefs.GetInt(levelMostCoinsKey);
+        int currCoins = LogicManagerScript.Instance.NumCoins;
         if (prevMostCoins < currCoins) {
-            PlayerPrefs.SetFloat(levelMostCoinsKey, currCoins);
+            PlayerPrefs.SetInt(levelMostCoinsKey, currCoins);
         }
+    }
+
+    private void UnlockNewLevelIfNeeded() {
+        int currLevel = SceneManager.GetActiveScene().buildIndex;
+        if (currLevel == _numberOfLevels) return;
+
+        string levelUnlockedKey = string.Format(LevelUnlockedKey, currLevel + 1);
+        if (PlayerPrefs.GetInt(levelUnlockedKey) != 0) return;
+        PlayerPrefs.SetInt(levelUnlockedKey, 1);
     }
 
     void OnEnable() {
