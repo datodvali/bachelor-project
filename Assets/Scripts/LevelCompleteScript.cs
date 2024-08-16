@@ -39,9 +39,11 @@ public class LevelCompleteScript : MonoBehaviour {
 
     void OnEnable() {
         GameEvents.levelComplete += HandleLevelCompleted;
+        GameEvents.gameComplete += HandleLevelCompleted;
     }
 
     void OnDisable() {
         GameEvents.levelComplete -= HandleLevelCompleted;
+        GameEvents.gameComplete -= HandleLevelCompleted;
     }
 }

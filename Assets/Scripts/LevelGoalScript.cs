@@ -15,7 +15,8 @@ public class LevelGoalScript : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collider) {
         if (collider.TryGetComponent<PlayerController>(out var player)) {
-            if (SceneManager.GetActiveScene().buildIndex > _numberOfLevels) {
+            Debug.Log(SceneManager.GetActiveScene().buildIndex);
+            if (SceneManager.GetActiveScene().buildIndex == _numberOfLevels) {
                 GameEvents.gameComplete.Invoke();
             } else {
                 GameEvents.levelComplete.Invoke();

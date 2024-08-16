@@ -7,6 +7,7 @@ TagManager:
   - PauseScreen
   - DeathScreen
   - LevelCompleteScreen
+  - GameCompleteScreen
   layers:
   - Default
   - TransparentFX
