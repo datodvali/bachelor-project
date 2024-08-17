@@ -21495,11 +21495,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7141181625857283552, guid: 72c84b1578615be40bcb4f8415b11f6a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -649.69
+      value: -645.1
       objectReference: {fileID: 0}
     - target: {fileID: 7141181625857283552, guid: 72c84b1578615be40bcb4f8415b11f6a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.4
+      value: -9.25
       objectReference: {fileID: 0}
     - target: {fileID: 7141181625857283552, guid: 72c84b1578615be40bcb4f8415b11f6a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -23419,6 +23419,10 @@ PrefabInstance:
     - target: {fileID: 134636208229220840, guid: 72c84b1578615be40bcb4f8415b11f6a, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1591334422569833048, guid: 72c84b1578615be40bcb4f8415b11f6a, type: 3}
+      propertyPath: _damageEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7141181625857283552, guid: 72c84b1578615be40bcb4f8415b11f6a, type: 3}
       propertyPath: m_LocalPosition.x

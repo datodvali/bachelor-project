@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2839201404707935614}
   - component: {fileID: 8931918948909256844}
   - component: {fileID: 1239843272173169966}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PriestKingStatue
   m_TagString: Untagged
   m_Icon: {fileID: 0}

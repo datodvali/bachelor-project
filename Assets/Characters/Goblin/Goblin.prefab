@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 2914431489938447429}
   - component: {fileID: 3366811087091510745}
   - component: {fileID: 1591334422569833048}
-  - component: {fileID: 3796013894346871001}
+  - component: {fileID: 4426837460081712748}
+  - component: {fileID: 6786771199423786901}
   m_Layer: 7
   m_Name: Goblin
   m_TagString: Untagged
@@ -39,6 +40,8 @@ Transform:
   - {fileID: 8696866748005504891}
   - {fileID: 1281709956885127673}
   - {fileID: 7645261078435751155}
+  - {fileID: 8112332605061703805}
+  - {fileID: 6593843243557094443}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1657142939984985679
@@ -240,7 +243,7 @@ MonoBehaviour:
   _damageEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3796013894346871001}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BaseGroundEnemy, Assembly-CSharp
         m_MethodName: OnDamageTaken
         m_Mode: 0
@@ -263,7 +266,7 @@ MonoBehaviour:
   _isInvincible: 0
   _invincibilityEffectPulsing: 0
   _invincibilityTimeOnHit: 0
---- !u!114 &3796013894346871001
+--- !u!114 &4426837460081712748
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,12 +275,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 134636208229220840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da5bb8895f8bc8640a689ae8dd4dca82, type: 3}
+  m_Script: {fileID: 11500000, guid: 558a75a9d5f3a6044a18fa717e519f37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runSpeed: 10
+  _projectilePrefab: {fileID: 7752616194557197168, guid: 1ec18ed9dc1910f4196cb49c0485bb4f, type: 3}
+  _launchPoint: {fileID: 8112332605061703805}
+--- !u!114 &6786771199423786901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134636208229220840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02dc538ba1bc4844d81c681cf78d5c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _runSpeed: 4
   _attackZone: {fileID: 8552721597088903896}
   _groundZone: {fileID: 8540390748349140477}
+  _rangedAttackZone: {fileID: 1569870176176021884}
 --- !u!1 &672428150706645806
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,11 +341,11 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 1
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -464,7 +482,7 @@ MonoBehaviour:
   noCollidersRemaining:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3796013894346871001}
+      - m_Target: {fileID: 6786771199423786901}
         m_TargetAssemblyTypeName: BaseGroundEnemy, Assembly-CSharp
         m_MethodName: CliffDetected
         m_Mode: 1
@@ -476,6 +494,99 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &8880440335975665950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6593843243557094443}
+  - component: {fileID: 7729631195349638931}
+  - component: {fileID: 1569870176176021884}
+  m_Layer: 10
+  m_Name: BombAttackZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6593843243557094443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8880440335975665950}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7141181625857283552}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &7729631195349638931
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8880440335975665950}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 9.892658, y: -0.90984964}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 9.897011, y: 12.3019705}
+  m_EdgeRadius: 0
+--- !u!114 &1569870176176021884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8880440335975665950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8de9ff6f1745b49bfb06cf20009df5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noCollidersRemaining:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &9000064070366480800
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,3 +684,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _knockBack: {x: 0, y: 3}
   _damage: 50
+--- !u!1 &9178230112282310440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8112332605061703805}
+  m_Layer: 0
+  m_Name: BombLaunchPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8112332605061703805
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178230112282310440}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7141181625857283552}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

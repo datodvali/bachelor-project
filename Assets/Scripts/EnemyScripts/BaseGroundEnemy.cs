@@ -4,17 +4,17 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchDirections), typeof(Animator))]
 public class BaseGroundEnemy : MonoBehaviour {
     [SerializeField] protected float _runSpeed = 4f;
-    private Rigidbody2D _rigidBody;
-    private TouchDirections _touchDirections;
-    [SerializeField] private DetectionZone _attackZone;
-    [SerializeField] private DetectionZone _groundZone;
-    private Animator _animator;
-    private Damageable _damageable;
+    protected Rigidbody2D _rigidBody;
+    protected TouchDirections _touchDirections;
+    [SerializeField] protected DetectionZone _attackZone;
+    [SerializeField] protected DetectionZone _groundZone;
+    protected Animator _animator;
+    protected Damageable _damageable;
 
     public enum Direction { RIGHT, LEFT }
-    private Direction _moveDirection = Direction.RIGHT;
-    private bool _hasTarget = false;
-    private PlatformMovementScript _platform;
+    protected Direction _moveDirection = Direction.RIGHT;
+    protected bool _hasTarget = false;
+    protected PlatformMovementScript _platform;
 
     protected virtual float CurrXVelocity
     {
@@ -30,7 +30,7 @@ public class BaseGroundEnemy : MonoBehaviour {
     public Direction MoveDirection
     {
         get => _moveDirection;
-        private set
+        protected set
         {
             if (_moveDirection != value)
             {
@@ -43,7 +43,7 @@ public class BaseGroundEnemy : MonoBehaviour {
     public bool HasTarget
     {
         get => _hasTarget;
-        private set
+        protected set
         {
             _hasTarget = value;
             _animator.SetBool(AnimationNames.hasTarget, value);
@@ -64,18 +64,22 @@ public class BaseGroundEnemy : MonoBehaviour {
         _damageable = GetComponent<Damageable>();
     }
 
-    protected virtual void Start()
+    void Start()
     {
         _runSpeed *= transform.localScale.x;
         _animator.SetBool(AnimationNames.isMoving, true);
     }
 
-    protected virtual void Update()
+    void Update()
     {
         HasTarget = _attackZone.detectedColliders.Count > 0;
+        UpdateImpl();
     }
 
-    protected virtual void FixedUpdate()
+    protected virtual void UpdateImpl() {
+    }
+
+    void FixedUpdate()
     {
         if (LockVelocity)
         {
@@ -87,6 +91,10 @@ public class BaseGroundEnemy : MonoBehaviour {
             ChangeDirection();
         }
         _rigidBody.velocity = new Vector2(CurrXVelocity, _rigidBody.velocity.y);
+        FixedUpdateImpl();
+    }
+
+    protected virtual void FixedUpdateImpl() {
     }
 
     protected virtual void ChangeDirection()
@@ -94,7 +102,7 @@ public class BaseGroundEnemy : MonoBehaviour {
         MoveDirection = (MoveDirection == Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT;
     }
 
-    public virtual void OnDamageTaken(int damage, Vector2 knockBack)
+    protected virtual void OnDamageTaken(int damage, Vector2 knockBack)
     {
         _rigidBody.velocity = new Vector2(knockBack.x, _rigidBody.velocity.y + knockBack.y);
     }

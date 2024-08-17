@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GoblinController : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+public class GoblinController : BaseGroundEnemy {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    [SerializeField] private DetectionZone _rangedAttackZone;
+
+    protected override void UpdateImpl() {
+        if (_rangedAttackZone.detectedColliders.Count > 0 ) {
+            _animator.SetBool(AnimationNames.hasRangedAttackTarget, true);
+        } else {
+            _animator.SetBool(AnimationNames.hasRangedAttackTarget, false);
+        }
     }
 }
