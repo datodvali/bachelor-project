@@ -9,8 +9,9 @@ public class WayPointBasedMovingPlatform : PlatformMovementScript
     private readonly float _minDistance = 0.3f;
 
 
-    protected override void PrepareForMovement()
+    protected override void Awake()
     {
+        base.Awake();
         _wayPointIndex = 0;
         _nextWayPoint = _wayPoints[_wayPointIndex];
     }

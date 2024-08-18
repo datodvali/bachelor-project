@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 4745537118465697913}
   - component: {fileID: 7823232277153947205}
   - component: {fileID: 1417122274929988424}
-  - component: {fileID: 1808213786291514673}
-  - component: {fileID: -519483031043460798}
+  - component: {fileID: 6061765342953845586}
+  - component: {fileID: 258852782471368341}
   m_Layer: 14
-  m_Name: VerticalPlatform
+  m_Name: RotatingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 3, y: 2}
+  m_Size: {x: 5, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -147,21 +147,21 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03060913, y: -0.009475231}
+  m_Offset: {x: -0.016590118, y: -0.01659012}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 3, y: 2}
+    newSize: {x: 5, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.1085815, y: 1.9921927}
+  m_Size: {x: 4.991783, y: 1.9921927}
   m_EdgeRadius: 0
---- !u!61 &1808213786291514673
-BoxCollider2D:
+--- !u!58 &6061765342953845586
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -192,20 +192,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0025634766, y: -0.016590118}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 3, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 2
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: -0.0000019073486, y: 0}
   serializedVersion: 2
-  m_Size: {x: 3.0523682, y: 1.992193}
-  m_EdgeRadius: 0
---- !u!114 &-519483031043460798
+  m_Radius: 2.739996
+--- !u!114 &258852782471368341
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -214,8 +204,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6416914422900164719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deb1e23eff96be74fa5cd961278c72ee, type: 3}
+  m_Script: {fileID: 11500000, guid: c8a67fe36eafbed43b681db7a1277af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 3
-  _directionY: 1
+  _directionX: 1
+  _rotationSpeed: 50

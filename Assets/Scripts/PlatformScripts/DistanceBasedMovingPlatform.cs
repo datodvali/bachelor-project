@@ -1,12 +1,14 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DistanceBasedMovingPlatform : PlatformMovementScript {
     [SerializeField] private float _distanceToCover = 0f;
     private float _startingX; 
     
-    protected override void PrepareForMovement()
+    protected override void Awake()
     {
+        base.Awake();
         _startingX = transform.localPosition.x;
     }
 

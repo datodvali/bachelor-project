@@ -11,16 +11,13 @@ public abstract class PlatformMovementScript : MonoBehaviour
         }
     }
     
-    void Awake() {
+    protected virtual void Awake() {
         _rb = GetComponent<Rigidbody2D>();
-        PrepareForMovement();
     }
 
     void FixedUpdate() {
         Move();
     }
-
-    protected abstract void PrepareForMovement();
 
     protected abstract void Move();
 }
