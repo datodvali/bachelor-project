@@ -45,7 +45,7 @@ public class FlyingEyeController : MonoBehaviour
     void Start()
     {   
         _wayPointIndex = 0;
-        _nextWayPoint = _wayPoints[_wayPointIndex];
+        if (_wayPoints.Count > 0) _nextWayPoint = _wayPoints[_wayPointIndex];
     }
 
     void Update()
@@ -57,7 +57,7 @@ public class FlyingEyeController : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (_damageable.IsAlive && !LockVelocity) {
+        if (_damageable.IsAlive && !LockVelocity && _nextWayPoint != null) {
             Fly();
         } else {
             _rb.velocity = Vector2.zero;

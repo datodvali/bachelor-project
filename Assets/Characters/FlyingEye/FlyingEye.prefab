@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 255941785785179233}
-  - component: {fileID: 4605602571795236982}
   - component: {fileID: 7007653350867591679}
+  - component: {fileID: 4715479380402052302}
   m_Layer: 10
   m_Name: BiteAttack
   m_TagString: Untagged
@@ -27,13 +27,27 @@ Transform:
   m_GameObject: {fileID: 1837728508005712488}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.63, y: -4.78, z: 0}
+  m_LocalPosition: {x: 0.41, y: -3.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 309619570512197100}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &4605602571795236982
+--- !u!114 &7007653350867591679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837728508005712488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f3939e44626bb45a74e4207e6bdf21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _knockBack: {x: 0, y: 0}
+  _damage: 20
+--- !u!58 &4715479380402052302
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,23 +79,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 6.54, y: 4.06}
+  m_Offset: {x: 0.7733985, y: 2.474872}
   serializedVersion: 2
-  m_Radius: 0.48
---- !u!114 &7007653350867591679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837728508005712488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2f3939e44626bb45a74e4207e6bdf21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _knockBack: {x: 0, y: 0}
-  _damage: 20
+  m_Radius: 0.82792234
 --- !u!1 &4344072737469152536
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,9 +224,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.5157676, y: 2.88}
+  m_Offset: {x: -0.08260453, y: 2.9418805}
   serializedVersion: 2
-  m_Radius: 0.6550088
+  m_Radius: 0.8200238
 --- !u!114 &6294222282886068767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,24 +411,17 @@ MonoBehaviour:
   _damageEvent:
     m_PersistentCalls:
       m_Calls: []
-  _deathEvent:
+  deathEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4307403461841705664}
-        m_TargetAssemblyTypeName: FlyingEyeController, Assembly-CSharp
-        m_MethodName: OnDeath
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _health: 100
+      m_Calls: []
+  healthUpdateEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHealth: 100
+  health: 100
   _isInvincible: 0
-  _invincibilityTime: 0
+  _invincibilityEffectPulsing: 0
+  _invincibilityTimeOnHit: 0
 --- !u!114 &4307403461841705664
 MonoBehaviour:
   m_ObjectHideFlags: 0
