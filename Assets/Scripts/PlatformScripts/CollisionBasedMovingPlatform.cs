@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CollisionBasedMovingPlatform : PlatformMovementScript {
     private readonly string _layerToCheck = "Ground";
-    [SerializeField] protected float _directionX = 1;
+    [SerializeField] protected int _directionX = 1;
 
     protected override void Move() {
         Vector2 direction = new(_directionX, 0);

@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class RotatingPlatform : CollisionBasedMovingPlatform
 {
 
     [SerializeField] private float _rotationSpeed = 30f;
-    public float slideSpeed = 5f;
+    [SerializeField] private int _rotationDirection = 1;
 
     protected override void Move() {
         Vector2 direction = new(_directionX, 0);
@@ -14,21 +13,6 @@ public class RotatingPlatform : CollisionBasedMovingPlatform
     }
 
     private void Rotate() {
-        transform.Rotate(0,0, _rotationSpeed * Time.deltaTime);
+        transform.Rotate(0,0, _rotationSpeed * _rotationDirection * Time.deltaTime);
     }
-
-    // void OnCollisionStay2D(Collision2D collision)
-    // {
-    //     if (collision.gameObject.CompareTag("Player"))
-    //     {
-    //         Rigidbody2D character = collision.gameObject.GetComponent<Rigidbody2D>();
-
-    //         float platformAngle = transform.rotation.eulerAngles.z;
-    //         if (platformAngle > 180) platformAngle -= 360;
-    //         float angleInRadians = platformAngle * Mathf.Deg2Rad;
-
-    //         Vector2 slideDirection = new(-Mathf.Sin(angleInRadians), -Mathf.Cos(angleInRadians));
-    //         character.velocity = new(character.velocity.x + slideDirection.x * slideSpeed, character.velocity.y + slideDirection.y * slideSpeed);
-    //     }
-    // }
 }

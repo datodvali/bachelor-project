@@ -1,9 +1,9 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DistanceBasedMovingPlatform : PlatformMovementScript {
     [SerializeField] private float _distanceToCover = 0f;
+    [SerializeField] private int _directionX = 1;
     private float _startingX; 
     
     protected override void Awake()
@@ -13,12 +13,11 @@ public class DistanceBasedMovingPlatform : PlatformMovementScript {
     }
 
     protected override void Move() {
-        Vector2 direction = new(transform.localScale.x, 0);
+        Vector2 direction = new(_directionX, 0);
         _rb.velocity = direction * _movementSpeed;
         if (Math.Abs(_startingX - transform.localPosition.x) > _distanceToCover) {
             _startingX = transform.localPosition.x;
-            Vector2 prevScale = transform.localScale;
-            transform.localScale = new(prevScale.x * -1, prevScale.y); 
+            _directionX *= -1;
         }
     }
 }
