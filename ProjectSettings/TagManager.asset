@@ -34,7 +34,7 @@ TagManager:
   - Coin
   - Platform
   - Projectile
-  - 
+  - Trap
   - 
   - 
   - 
@@ -62,4 +62,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1125628775
     locked: 0

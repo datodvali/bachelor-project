@@ -337,7 +337,7 @@ MonoBehaviour:
   _movementSpeed: 0
   _directionX: 1
   _rotationSpeed: 50
-  _rotationDirection: 1
+  _rotationDirection: -1
 --- !u!114 &-7696552215242990830
 MonoBehaviour:
   m_ObjectHideFlags: 0

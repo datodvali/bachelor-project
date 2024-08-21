@@ -435,7 +435,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 2.8
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -461,7 +461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _walkSpeed: 5
   _runSpeed: 10
-  _jumpInitialSpeed: 14
+  _jumpInitialSpeed: 15
   _climbSpeed: 4
   hasSecondLife: 0
 --- !u!114 &6169564231260894538
@@ -672,7 +672,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 256
+      m_Bits: 16640
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
@@ -724,8 +724,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00703454, y: -0.19343287}
-  m_Size: {x: 0.5787152, y: 1.823723}
+  m_Offset: {x: 0.00703454, y: -0.17546558}
+  m_Size: {x: 0.5787152, y: 1.7877884}
   m_Direction: 0
 --- !u!114 &1728318151840379790
 MonoBehaviour:

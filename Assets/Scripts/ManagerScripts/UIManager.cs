@@ -67,6 +67,9 @@ public class UIManager : MonoBehaviour
 
     private void CharacterDamagedHandler(GameObject character, float damage) {
         Vector3 spawnPosition = Camera.main.WorldToScreenPoint(character.transform.position);
+        Transform transform = _gameCanvas.transform;
+        Vector3 parentPosition = transform.localPosition;
+        transform.localPosition = new Vector3(parentPosition.x, parentPosition.y, parentPosition.z - 10);
         Instantiate(_damageTextPrefab, spawnPosition, Quaternion.identity, _gameCanvas.transform)
             .GetComponent<TMP_Text>()
             .SetText(damage.ToString());
