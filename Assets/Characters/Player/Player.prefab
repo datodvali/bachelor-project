@@ -366,6 +366,7 @@ Transform:
   - {fileID: 7962587910960155018}
   - {fileID: 6756233973967678653}
   - {fileID: 551362053876557488}
+  - {fileID: 9203468038911127949}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4906599960242322491
@@ -459,6 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8047cc643f32c9947ab7eb810bef59b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dustPS: {fileID: 486069606588432620}
   _walkSpeed: 5
   _runSpeed: 10
   _jumpInitialSpeed: 15
@@ -617,6 +619,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5824f6f5-7dbc-4eb5-a98d-d5fc62eebb01
     m_ActionName: UI/Escape[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f95610e1-69d5-43eb-a1ea-8b22d5f8afe4
+    m_ActionName: Player/WallHang[/Keyboard/z]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -888,3 +894,70 @@ PolygonCollider2D:
       - {x: 0.25439608, y: -0.70185614}
       - {x: 0.52241313, y: 0.28520364}
   m_UseDelaunayMesh: 0
+--- !u!1001 &7867582471474798599
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2809691540629474409}
+    m_Modifications:
+    - target: {fileID: 1339273304664248714, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339273304664248714, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339273304664248714, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339273304664248714, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339273304664248714, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339273304664248714, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339273304664248714, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339273304664248714, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339273304664248714, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339273304664248714, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065646484432918719, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+      propertyPath: m_Name
+      value: DustPS
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+--- !u!198 &486069606588432620 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7751144837361508587, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+  m_PrefabInstance: {fileID: 7867582471474798599}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9203468038911127949 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1339273304664248714, guid: c1c5420e206fb4644a518670fb568114, type: 3}
+  m_PrefabInstance: {fileID: 7867582471474798599}
+  m_PrefabAsset: {fileID: 0}

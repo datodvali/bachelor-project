@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private TouchDirections _touchDirections;
     private Damageable _damageable;
     private PlayerVisualController _playerVisualController;
+    [SerializeField] private ParticleSystem _dustPS;
 
     [SerializeField] private float _walkSpeed = 5f;
     [SerializeField] private float _runSpeed = 12f;
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
             return _isRunning;
         }
         private set {
+            if (value && !_isRunning) CreateDust();
             _isRunning = value;
             _animator.SetBool(AnimationNames.isRunning, value);
         }
@@ -189,6 +191,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump() {
         if (IsOnWallHang) WallJump();
+        if (_touchDirections.IsOnGround) CreateDust();
         _animator.SetTrigger(AnimationNames.jump);
         _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, _jumpInitialSpeed);
         _jumped = true;
@@ -321,5 +324,9 @@ public class PlayerController : MonoBehaviour
                 _platform = null;
             }
         }
+    }
+
+    public void CreateDust() {
+        _dustPS.Play();
     }
 }
