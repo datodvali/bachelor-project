@@ -15,11 +15,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _runSpeed = 12f;
     [SerializeField] private float _jumpInitialSpeed = 10f;
     [SerializeField] private float _climbSpeed = 4f;
-    private float _superSpeedTimeRemaining = 0f;
+    private float _superSpeedTimeRemaining;
     private readonly float _superSpeedMultiplier = 1.3f;
-    private bool _superSpeedEffectPulsing = false;
-    public bool hasSecondLife = false;
-    private bool _hasSuperSpeed = false;
+    private bool _superSpeedEffectPulsing;
+    public bool hasSecondLife;
+    private bool _hasSuperSpeed;
     private bool _facingRight = true;
     private bool _isMoving;
     private bool _isRunning;
@@ -27,10 +27,10 @@ public class PlayerController : MonoBehaviour
     private bool _isOnWallHang;
     private bool _readyForRun;
     private readonly float _coyoteTime = 0.1f;
-    private float _timeInAir = 0f; 
+    private float _timeInAir; 
     private readonly float _jumpBufferDuration = 0.2f;
-    private float _jumpBufferTimer = 0f;
-    private bool _jumped = false;
+    private float _jumpBufferTimer;
+    private bool _jumped;
     private Vector2 _moveInput;
     private PlatformMovementScript _platform;
     private readonly string _layerToCheck = "Platform";
@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
         }
         private set {
             _isOnWallHang = value;
+            if (!_isOnWallHang) IsClimbing = false; 
             _animator.SetBool(AnimationNames.isOnWallHang, value);
         }
     }
@@ -190,7 +191,10 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Jump() {
-        if (IsOnWallHang) WallJump();
+        if (IsOnWallHang)  {
+            WallJump();
+            return;
+        }
         if (_touchDirections.IsOnGround) CreateDust();
         _animator.SetTrigger(AnimationNames.jump);
         _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, _jumpInitialSpeed);
@@ -201,8 +205,9 @@ public class PlayerController : MonoBehaviour
     private void WallJump() {
         if (IsClimbing) IsClimbing = false;
         if (IsOnWallHang) IsOnWallHang = false;
-         _animator.SetTrigger(AnimationNames.jump);
-        _rigidBody.velocity = new Vector2(_moveInput.x, _jumpInitialSpeed);
+        _animator.SetTrigger(AnimationNames.jump);
+        ChangeDirection(_moveInput.x);
+        _rigidBody.velocity = new Vector2(_moveInput.x != 0 ? _jumpInitialSpeed / 1.5f : 0f, _jumpInitialSpeed);
         _jumped = true;
         _jumpBufferTimer = 0;
     }
