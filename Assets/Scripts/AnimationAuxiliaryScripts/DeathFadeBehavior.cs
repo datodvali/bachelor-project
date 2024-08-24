@@ -11,7 +11,6 @@ public class DeathFadeBehavior : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log("ONStateEnter");
         _objToDestroy = animator.gameObject;
         _spriteRenderer = animator.GetComponent<SpriteRenderer>();
         _startColor = _spriteRenderer.color;
@@ -20,7 +19,6 @@ public class DeathFadeBehavior : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _timeElapsed += Time.deltaTime;
-        Debug.Log(_timeElapsed);
         _spriteRenderer.color = new Color(_startColor.r, _startColor.b, _startColor.g, _startColor.a * (1 - _timeElapsed / _fadeTime));
 
         if (_timeElapsed > _fadeTime) {

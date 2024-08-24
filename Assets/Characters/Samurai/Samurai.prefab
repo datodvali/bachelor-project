@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f3939e44626bb45a74e4207e6bdf21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _knockBack: {x: 5, y: 5}
+  _knockBack: {x: 4, y: 2}
   _damage: 50
 --- !u!1 &6698178548177702721
 GameObject:

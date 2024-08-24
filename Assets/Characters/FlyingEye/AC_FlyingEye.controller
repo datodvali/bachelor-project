@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8692550e8b2c6c94ab81a102e83be23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fadeTime: 10
+  _fadeTime: 1
 --- !u!114 &1351681634485324561
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -280,6 +280,23 @@ MonoBehaviour:
   _variableName: lockVelocity
   _updateOnStateEnter: 0
   _updateOnStateMachineEnter: 1
+  _valueOnEnter: 1
+  _valueOnExit: 0
+--- !u!114 &1406497205031365839
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8384489f2e1a442baf5af933c7d05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _variableName: lockVelocity
+  _updateOnStateEnter: 1
+  _updateOnStateMachineEnter: 0
   _valueOnEnter: 1
   _valueOnExit: 0
 --- !u!1102 &1515287577035845799
@@ -431,6 +448,7 @@ AnimatorState:
   - {fileID: -6817906969027407887}
   m_StateMachineBehaviours:
   - {fileID: 5625107489813537329}
+  - {fileID: 1406497205031365839}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

@@ -14,7 +14,6 @@ public class DetectionZone : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D enteredCol) {
-        Debug.Log("something");
         detectedColliders.Add(enteredCol);
     }
 

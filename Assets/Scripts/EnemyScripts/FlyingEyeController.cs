@@ -13,10 +13,10 @@ public class FlyingEyeController : MonoBehaviour
     private Transform _nextWayPoint;
     private int _wayPointIndex;
     [SerializeField] private float _flightSpeed = 2f;
-    private bool _hasTarget = false;
-    private float _minDistance = 0.3f;
+    private bool _hasTarget;
+    private readonly float _minDistance = 0.3f;
 
-    public Boolean HasTarget {
+    public bool HasTarget {
         get {
             return _hasTarget;
         }
@@ -57,11 +57,9 @@ public class FlyingEyeController : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (_damageable.IsAlive && !LockVelocity && _nextWayPoint != null) {
-            Fly();
-        } else {
-            _rb.velocity = Vector2.zero;
-        }
+        if (!_damageable.IsAlive) return;
+        if (_damageable.IsAlive && !LockVelocity && _nextWayPoint != null) Fly();
+        else _rb.velocity = Vector2.zero;
     }
 
     private void Fly()
@@ -84,9 +82,9 @@ public class FlyingEyeController : MonoBehaviour
     }
 
     public void OnDeath() {
-        Debug.Log("on death called");
         _deathCollider.enabled = true;
-        _rb.velocity = new Vector2(0, _rb.velocity.y);
+        _rb.bodyType = RigidbodyType2D.Dynamic;
         _rb.gravityScale = 2;
+        _rb.velocity = new(0, _rb.velocity.y);
     }
 }
