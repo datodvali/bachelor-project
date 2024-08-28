@@ -466,6 +466,7 @@ MonoBehaviour:
   _jumpInitialSpeed: 15
   _climbSpeed: 4
   hasSecondLife: 0
+  _numArrows: 10
 --- !u!114 &6169564231260894538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,7 +621,19 @@ MonoBehaviour:
     m_ActionId: 5824f6f5-7dbc-4eb5-a98d-d5fc62eebb01
     m_ActionName: UI/Escape[/Keyboard/escape]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7075385731070274586}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnWallHang
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: f95610e1-69d5-43eb-a1ea-8b22d5f8afe4
     m_ActionName: Player/WallHang[/Keyboard/z]
   m_NeverAutoSwitchControlSchemes: 0

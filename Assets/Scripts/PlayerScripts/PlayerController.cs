@@ -166,6 +166,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnClimb(float inputY) {
+        Debug.Log("something");
         if (inputY != 0 && IsOnWallHang) IsClimbing = true;
         else IsClimbing = false;
     }

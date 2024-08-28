@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1883581003}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 12
+    OrthographicSize: 11
     NearClipPlane: 0
     FarClipPlane: 50
     Dutch: 0
@@ -69406,7 +69406,7 @@ Camera:
   far clip plane: 50
   field of view: 34
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 11
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -80476,17 +80476,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c00541d21cb16f6498afe63e03547bd7, type: 3}
---- !u!114 &2137718404 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7075385731070274586, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
-  m_PrefabInstance: {fileID: 666941355322116940}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8047cc643f32c9947ab7eb810bef59b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2143744652
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80652,50 +80641,6 @@ PrefabInstance:
     - target: {fileID: 2809691540629474409, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169564231260894538, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169564231260894538, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
-      propertyPath: m_ActionEvents.Array.data[16].m_ActionId
-      value: 5824f6f5-7dbc-4eb5-a98d-d5fc62eebb01
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169564231260894538, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_ActionId
-      value: f95610e1-69d5-43eb-a1ea-8b22d5f8afe4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169564231260894538, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
-      propertyPath: m_ActionEvents.Array.data[16].m_ActionName
-      value: UI/Escape[/Keyboard/escape]
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169564231260894538, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_ActionName
-      value: Player/WallHang[/Keyboard/z]
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169564231260894538, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169564231260894538, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2137718404}
-    - target: {fileID: 6169564231260894538, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169564231260894538, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnWallHang
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169564231260894538, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6169564231260894538, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6474011261945291983, guid: 1f92c9362fbaa854b82bfc2dc2edcc22, type: 3}
       propertyPath: m_Name

@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da5bb8895f8bc8640a689ae8dd4dca82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runSpeed: 4
+  _runSpeed: 6
   _attackZone: {fileID: 8679647624828214091}
   _groundZone: {fileID: 5056154603084054586}
 --- !u!1 &111038659407488629
