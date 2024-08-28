@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 _moveInput;
     private PlatformMovementScript _platform;
     private readonly string _layerToCheck = "Platform";
+    [SerializeField] private int _numArrows = 10;
 
     public bool IsMoving {
         get {
@@ -223,8 +224,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnRangedAttack(InputAction.CallbackContext context) {
-        if (context.started) {
+        if (context.started && _numArrows > 0) {
+            _numArrows--;
             _animator.SetTrigger(AnimationNames.rangedAttack);
+            CharacterEvents.numArrowsChanged(_numArrows);
         }
     }
 
@@ -312,6 +315,11 @@ public class PlayerController : MonoBehaviour
 
     void OnDisable() {
         _damageable.deathEvent.RemoveListener(OnDeath);
+    }
+
+    public void OnArrowsClaimed(int claimedArrows) {
+        _numArrows += claimedArrows;
+        CharacterEvents.numArrowsChanged(_numArrows);
     }
 
     public void OnCollisionEnter2D(Collision2D collision) {

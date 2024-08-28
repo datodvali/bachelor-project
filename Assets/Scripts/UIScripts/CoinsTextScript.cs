@@ -5,7 +5,6 @@ public class CoinsTextScript : MonoBehaviour
 {
     private int _numCoins = 0;
     private TextMeshProUGUI _textMeshPro;
-    private readonly string _coinsText = "X ";
 
     void Awake() {
         _textMeshPro = GetComponent<TextMeshProUGUI>();
@@ -14,7 +13,7 @@ public class CoinsTextScript : MonoBehaviour
 
     public void UpdateCoinsText(int coins) {
         _numCoins += coins; 
-        _textMeshPro.text = _coinsText + _numCoins;
+        _textMeshPro.text = $"X {_numCoins}";
     }
 
     void OnEnable() {

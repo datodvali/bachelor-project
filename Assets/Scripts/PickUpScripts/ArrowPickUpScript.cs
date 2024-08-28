@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class SuperSpeedPickUpScript : BasePickUpScript
+public class ArrowPickUpScript : BasePickUpScript
 {
-    [SerializeField] private float _superSpeedDuration = 10f;
+    [SerializeField] private int _numArrows = 5;
 
     private void OnTriggerEnter2D(Collider2D collider) {
         if (collider.TryGetComponent<PlayerController>(out var player)) {
-            player.OnSuperSpeedGained(_superSpeedDuration);
+            player.OnArrowsClaimed(_numArrows);
             OnClaimed();
         }
     }
