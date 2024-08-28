@@ -389,7 +389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5410568071249910125, guid: 330c83626e32dd54196be50e77e86a77, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 260
+      value: 165.4
       objectReference: {fileID: 0}
     - target: {fileID: 5410568071249910125, guid: 330c83626e32dd54196be50e77e86a77, type: 3}
       propertyPath: m_SizeDelta.y
@@ -425,7 +425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5410568071249910125, guid: 330c83626e32dd54196be50e77e86a77, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 980
+      value: 712
       objectReference: {fileID: 0}
     - target: {fileID: 5410568071249910125, guid: 330c83626e32dd54196be50e77e86a77, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -523,7 +523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5969108815784402755, guid: d4899962385350348bf2de2973b67098, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 490
+      value: 470
       objectReference: {fileID: 0}
     - target: {fileID: 5969108815784402755, guid: d4899962385350348bf2de2973b67098, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -629,7 +629,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6553483081975334255, guid: 0585d5b263a0e424c96e14ea954279be, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 880
+      value: 630
       objectReference: {fileID: 0}
     - target: {fileID: 6553483081975334255, guid: 0585d5b263a0e424c96e14ea954279be, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -943,7 +943,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3491533089250254250, guid: bce561ffcfde98b448cabebc0b3f4af4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 630
+      value: 893
       objectReference: {fileID: 0}
     - target: {fileID: 3491533089250254250, guid: bce561ffcfde98b448cabebc0b3f4af4, type: 3}
       propertyPath: m_AnchoredPosition.y

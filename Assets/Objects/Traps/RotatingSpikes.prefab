@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 8069449060419912714}
   - component: {fileID: 7882343736143467591}
   - component: {fileID: -7696552215242990830}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: RotatingSpikes
   m_TagString: Untagged
   m_Icon: {fileID: 0}

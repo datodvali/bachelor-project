@@ -102,7 +102,7 @@ public class BaseGroundEnemy : MonoBehaviour {
         MoveDirection = (MoveDirection == Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT;
     }
 
-    protected virtual void OnDamageTaken(int damage, Vector2 knockBack)
+    public virtual void OnDamageTaken(int damage, Vector2 knockBack)
     {
         _rigidBody.velocity = new Vector2(knockBack.x, _rigidBody.velocity.y + knockBack.y);
     }

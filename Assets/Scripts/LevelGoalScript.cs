@@ -16,10 +16,18 @@ public class LevelGoalScript : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collider) {
         if (collider.TryGetComponent<PlayerController>(out var player)) {
             if (SceneManager.GetActiveScene().buildIndex == _numberOfLevels) {
-                GameEvents.gameComplete.Invoke();
+                Invoke(nameof(InvokeGameCompleteEvent), 2f);
             } else {
-                GameEvents.levelComplete.Invoke();
+                Invoke(nameof(InvokeLevelCompleteEvent), 2f);
             }
         }
+    }
+
+    private void InvokeGameCompleteEvent() {
+        GameEvents.gameComplete.Invoke();
+    }
+
+    private void InvokeLevelCompleteEvent() {
+        GameEvents.levelComplete.Invoke();
     }
 }

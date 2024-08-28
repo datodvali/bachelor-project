@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D _rigidBody;
+    private Collider2D _collider;
     private Animator _animator;
     private TouchDirections _touchDirections;
     private Damageable _damageable;
@@ -101,9 +103,10 @@ public class PlayerController : MonoBehaviour
 
     private float CurrentXVelocity {
         get {
+            if (!_damageable.IsAlive) return 0f;
             float currXVelocity;
             
-            if (!IsMoving || _touchDirections.IsOnWall) currXVelocity = 0;
+            if (!IsMoving || _touchDirections.IsOnWall) currXVelocity = 0f;
             else if (IsRunning) currXVelocity = _runSpeed;
             else currXVelocity = _walkSpeed;
             
@@ -117,6 +120,7 @@ public class PlayerController : MonoBehaviour
 
     private float CurrentYVelocity {
         get {
+            if (!_damageable.IsAlive) return 0f;
             if (IsClimbing) {
                 return _climbSpeed * _moveInput.y;
             } else if (IsOnWallHang) {
@@ -129,6 +133,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake() {
         _rigidBody = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
         _animator = GetComponent<Animator>();
         _touchDirections = GetComponent<TouchDirections>();
         _damageable = GetComponent<Damageable>();
@@ -150,6 +155,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnMove(InputAction.CallbackContext context) {
+        if (!_damageable.IsAlive) return;
         _moveInput = context.ReadValue<Vector2>();
         IsMoving = _moveInput.x != 0;
         if (!IsOnWallHang) {
@@ -261,9 +267,17 @@ public class PlayerController : MonoBehaviour
             hasSecondLife = false;
             _damageable.IsAlive = true;
             _damageable.Health = _damageable.MaxHealth;
+            
         } else {
-            GameEvents.gameOver.Invoke();
+            _rigidBody.bodyType = RigidbodyType2D.Kinematic;
+            LockVelocity = false;
+            _collider.enabled = false;
+            Invoke(nameof(InvokeGameOverEvent), 2f);
         }
+    }
+
+    private void InvokeGameOverEvent() {
+        GameEvents.gameOver.Invoke();
     }
 
     public void CheckCoyoteTime() {

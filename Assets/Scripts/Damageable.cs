@@ -83,9 +83,9 @@ public class Damageable : MonoBehaviour
         if (IsAlive && !_isInvincible) {
             _animator.SetTrigger(AnimationNames.hit);
             damageAmount = Math.Min(health, damageAmount);
+            _damageEvent.Invoke(damageAmount, knockBack);
             Health -= damageAmount;
             if (_invincibilityTimeOnHit > 0) ActivateInvincibilityOnHit();
-            _damageEvent.Invoke(damageAmount, knockBack);
             CharacterEvents.characterDamaged(gameObject, damageAmount);
         }
     }

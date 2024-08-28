@@ -29,12 +29,13 @@ public class KnightLogic : MonoBehaviour
             return _moveDirection;
         }
         private set {
+            if (value != _moveDirection)
+                transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
             _moveDirection = value;
-            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
         }
     }
 
-    public Boolean HasTarget {
+    public bool HasTarget {
         get {
             return _hasTarget;
         }

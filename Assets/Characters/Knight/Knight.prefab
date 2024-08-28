@@ -93,8 +93,8 @@ MonoBehaviour:
   noCollidersRemaining:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 584864277695463008}
-        m_TargetAssemblyTypeName: KnightLogic, Assembly-CSharp
+      - m_Target: {fileID: 8511018454439626048}
+        m_TargetAssemblyTypeName: BaseGroundEnemy, Assembly-CSharp
         m_MethodName: CliffDetected
         m_Mode: 1
         m_Arguments:
@@ -210,10 +210,10 @@ GameObject:
   - component: {fileID: 2873224329329549652}
   - component: {fileID: 2260739074732456856}
   - component: {fileID: 1265083664397953311}
-  - component: {fileID: 584864277695463008}
   - component: {fileID: 8326402820498227987}
   - component: {fileID: 4231648837055833030}
   - component: {fileID: 1212407396448705294}
+  - component: {fileID: 8511018454439626048}
   m_Layer: 7
   m_Name: Knight
   m_TagString: Untagged
@@ -353,21 +353,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.030000001, y: 0.0034540892}
   m_Size: {x: 0.84, y: 2.3430922}
   m_Direction: 0
---- !u!114 &584864277695463008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034596566880064582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56c94efc43d0d1141991acfbe2a46319, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  runSpeed: 4
-  _attackZone: {fileID: 6043138670784232200}
-  _groundZone: {fileID: 9097224360169152476}
 --- !u!95 &8326402820498227987
 Animator:
   serializedVersion: 5
@@ -453,8 +438,8 @@ MonoBehaviour:
   _damageEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 584864277695463008}
-        m_TargetAssemblyTypeName: KnightLogic, Assembly-CSharp
+      - m_Target: {fileID: 8511018454439626048}
+        m_TargetAssemblyTypeName: BaseGroundEnemy, Assembly-CSharp
         m_MethodName: OnDamageTaken
         m_Mode: 0
         m_Arguments:
@@ -476,6 +461,21 @@ MonoBehaviour:
   _isInvincible: 0
   _invincibilityEffectPulsing: 0
   _invincibilityTimeOnHit: 0
+--- !u!114 &8511018454439626048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034596566880064582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5bb8895f8bc8640a689ae8dd4dca82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _runSpeed: 5
+  _attackZone: {fileID: 6043138670784232200}
+  _groundZone: {fileID: 9097224360169152476}
 --- !u!1 &4723574286163695662
 GameObject:
   m_ObjectHideFlags: 0

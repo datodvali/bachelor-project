@@ -243,7 +243,7 @@ MonoBehaviour:
   _damageEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6786771199423786901}
         m_TargetAssemblyTypeName: BaseGroundEnemy, Assembly-CSharp
         m_MethodName: OnDamageTaken
         m_Mode: 0
@@ -292,7 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02dc538ba1bc4844d81c681cf78d5c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runSpeed: 4
+  _runSpeed: 6
   _attackZone: {fileID: 8552721597088903896}
   _groundZone: {fileID: 8540390748349140477}
   _rangedAttackZone: {fileID: 1569870176176021884}

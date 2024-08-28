@@ -12,10 +12,13 @@ public class WayPointBasedMovingPlatform : PlatformMovementScript
     {
         base.Awake();
         _wayPointIndex = 0;
-        _nextWayPoint = _wayPoints[_wayPointIndex];
+        if (_wayPoints.Count > 0) {
+            _nextWayPoint = _wayPoints[_wayPointIndex];
+        }
     }
 
     protected override void Move() {
+        if (_nextWayPoint == null) return;
         Vector2 direction = (_nextWayPoint.position - transform.position).normalized;
         _rb.velocity = direction * _movementSpeed;
         float distance = Vector2.Distance(_nextWayPoint.position, transform.position);
