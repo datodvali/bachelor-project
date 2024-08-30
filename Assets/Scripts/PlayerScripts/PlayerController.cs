@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
     private readonly string _layerToCheck = "Platform";
     [SerializeField] private int _numArrows = 10;
 
+    private float JumpInitialSpeed => _touchDirections.GravityReversed ? -1*_jumpInitialSpeed : _jumpInitialSpeed;
+
     public bool IsMoving {
         get {
             return _isMoving;
@@ -205,7 +207,7 @@ public class PlayerController : MonoBehaviour
         }
         if (_touchDirections.IsOnGround) CreateDust();
         _animator.SetTrigger(AnimationNames.jump);
-        _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, _jumpInitialSpeed);
+        _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, JumpInitialSpeed);
         _jumped = true;
         _jumpBufferTimer = 0;
     }
@@ -215,7 +217,7 @@ public class PlayerController : MonoBehaviour
         if (IsOnWallHang) IsOnWallHang = false;
         _animator.SetTrigger(AnimationNames.jump);
         ChangeDirection(_moveInput.x);
-        _rigidBody.velocity = new Vector2(_moveInput.x != 0 ? _jumpInitialSpeed / 1.5f : 0f, _jumpInitialSpeed);
+        _rigidBody.velocity = new Vector2(_moveInput.x != 0 ? JumpInitialSpeed / 1.5f : 0f, JumpInitialSpeed);
         _jumped = true;
         _jumpBufferTimer = 0;
     }

@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class TouchDirections : MonoBehaviour
 {
+    [SerializeField] private bool _gravityReversed = false; 
     [SerializeField] private float _groundDistance = 0.05f;
     [SerializeField] private float _wallDistance = 0.2f;
     [SerializeField] private float _ceilingDistance = 0.05f;
@@ -25,6 +26,15 @@ public class TouchDirections : MonoBehaviour
     private RaycastHit2D[] _platformHits = new RaycastHit2D[5];
 
     private Vector2 WallCheckDirection => gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left; 
+
+    public bool GravityReversed {
+        get {
+            return _gravityReversed;
+        }
+        set {
+            _gravityReversed = value;
+        }
+    }
 
     public bool IsOnGround {
         get {
@@ -74,9 +84,19 @@ public class TouchDirections : MonoBehaviour
     }
 
     void FixedUpdate() {
-        IsOnGround = _capsuleCollider.Cast(Vector2.down, _contactFilter, _groundHits, _groundDistance) > 0;
+        Vector2 groundDirection = GetGroundDirection();
+        Vector2 ceilingDirection = GetCeilingDirection();
+        IsOnGround = _capsuleCollider.Cast(groundDirection, _contactFilter, _groundHits, _groundDistance) > 0;
         IsOnWall = _capsuleCollider.Cast(WallCheckDirection, _contactFilter, _wallHits, _wallDistance) > 0;
-        IsOnCeiling = _capsuleCollider.Cast(Vector2.up, _contactFilter, _ceilingHits, _ceilingDistance) > 0;
-        IsOnPlatform = _capsuleCollider.Cast(Vector2.down, _platformContactFilter, _platformHits, _platformDistance) > 0;
+        IsOnCeiling = _capsuleCollider.Cast(ceilingDirection, _contactFilter, _ceilingHits, _ceilingDistance) > 0;
+        IsOnPlatform = _capsuleCollider.Cast(groundDirection, _platformContactFilter, _platformHits, _platformDistance) > 0;
+    }
+
+    private Vector2 GetGroundDirection() {
+        return !GravityReversed ? Vector2.down : Vector2.up; 
+    }
+
+    private Vector2 GetCeilingDirection() {
+        return !GravityReversed ? Vector2.up : Vector2.down;
     }
 }
