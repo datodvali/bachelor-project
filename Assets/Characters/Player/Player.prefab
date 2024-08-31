@@ -683,7 +683,7 @@ MonoBehaviour:
   _isOnWall: 0
   _isOnCeiling: 0
   _isOnPlatform: 0
-  _fallDeathDistance: 30
+  _fallDeathDistance: 50
   _contactFilter:
     useTriggers: 0
     useLayerMask: 1
