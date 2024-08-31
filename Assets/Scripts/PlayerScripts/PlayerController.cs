@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -150,6 +149,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update() {
+        CheckFatalFall();
         CheckCoyoteTime();
         CheckJumpBuffer();
         CheckSuperSpeed();
@@ -270,20 +270,25 @@ public class PlayerController : MonoBehaviour
             hasSecondLife = false;
             _damageable.IsAlive = true;
             _damageable.Health = _damageable.MaxHealth;
-            
-        } else {
-            _rigidBody.bodyType = RigidbodyType2D.Kinematic;
-            LockVelocity = false;
-            _collider.enabled = false;
-            Invoke(nameof(InvokeGameOverEvent), 2f);
-        }
+        } else OnTrueDeath();
+    }
+
+    private void OnTrueDeath() {
+        _rigidBody.bodyType = RigidbodyType2D.Kinematic;
+        LockVelocity = false;
+        _collider.enabled = false;
+        Invoke(nameof(InvokeGameOverEvent), 0.8f);
     }
 
     private void InvokeGameOverEvent() {
         GameEvents.gameOver.Invoke();
     }
 
-    public void CheckCoyoteTime() {
+    public void CheckFatalFall() {
+        if (_touchDirections.FatalFall) OnTrueDeath();
+    }
+
+    private void CheckCoyoteTime() {
         if (_touchDirections.IsOnGround && _timeInAir > 0) {
             _timeInAir = 0;
             _jumped = false;
@@ -292,7 +297,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void CheckJumpBuffer() {
+    private void CheckJumpBuffer() {
         if (!_touchDirections.IsOnGround && _jumpBufferTimer > 0) {
             _jumpBufferTimer -= Time.deltaTime;
         } else if (_touchDirections.IsOnGround && _jumpBufferTimer > 0) {
