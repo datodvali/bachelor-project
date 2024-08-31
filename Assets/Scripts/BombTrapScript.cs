@@ -7,8 +7,9 @@ public class BombTrapScript : MonoBehaviour
     void Awake() {
         _animator = GetComponent<Animator>();
     }
-    public void OnCollisionEnter2D(Collision2D collision) {
-        GameObject collidingObject = collision.gameObject;
+    
+    public void OnTriggerEnter2D(Collider2D collider) {
+        GameObject collidingObject = collider.gameObject;
         if (collidingObject.CompareTag("Player") || collidingObject.layer == LayerMask.NameToLayer("Projectile")) {
             _animator.SetTrigger(AnimationNames.explosion);
         }
