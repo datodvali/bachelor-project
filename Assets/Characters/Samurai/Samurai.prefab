@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3309f238f3d509642b31b11f7d470b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gravityReversed: 0
   _groundDistance: 0.05
   _wallDistance: 0.2
   _ceilingDistance: 0.05
@@ -289,7 +290,7 @@ GameObject:
   - component: {fileID: 3443469207324471847}
   - component: {fileID: 2531766166561999861}
   - component: {fileID: 5056154603084054586}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: GroundDetectionZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1075,6 +1075,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6086407202612955443, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026221847161556465, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 0.23529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026221847161556465, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 0.14509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026221847161556465, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 0.6117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026221847161556465, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.23529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026221847161556465, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.14509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026221847161556465, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.6117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443056810463562474, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 0.23529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443056810463562474, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 0.14509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443056810463562474, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 0.6117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443056810463562474, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.23529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443056810463562474, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.14509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443056810463562474, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.6117647
+      objectReference: {fileID: 0}
     - target: {fileID: 8523220362742176522, guid: 8eb9159523ab85b4e90ed4f40a3ad82a, type: 3}
       propertyPath: _gameOverMusic
       value: 

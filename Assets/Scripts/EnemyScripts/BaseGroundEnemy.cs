@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -10,16 +11,16 @@ public class BaseGroundEnemy : MonoBehaviour {
     [SerializeField] protected DetectionZone _groundZone;
     protected Animator _animator;
     protected Damageable _damageable;
-
     public enum Direction { RIGHT, LEFT }
     protected Direction _moveDirection = Direction.RIGHT;
     protected bool _hasTarget = false;
     protected PlatformMovementScript _platform;
+    [SerializeField] private float _distanceToCover;
+    private float _distanceCovered;
+    private float _pivotPointX;
 
-    protected virtual float CurrXVelocity
-    {
-        get
-        {
+    protected virtual float CurrXVelocity {
+        get {
             if (!_damageable.IsAlive) return 0;
             float currXVelocity = _runSpeed * (MoveDirection == Direction.RIGHT ? 1 : -1);
             if (_touchDirections.IsOnPlatform && _platform != null) currXVelocity += _platform.Velocity.x;
@@ -27,51 +28,43 @@ public class BaseGroundEnemy : MonoBehaviour {
         }
     }
 
-    public Direction MoveDirection
-    {
+    public Direction MoveDirection {
         get => _moveDirection;
-        protected set
-        {
-            if (_moveDirection != value)
-            {
+        protected set {
+            if (_moveDirection != value) {
                 _moveDirection = value;
                 transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
             }
         }
     }
 
-    public bool HasTarget
-    {
+    public bool HasTarget {
         get => _hasTarget;
-        protected set
-        {
+        protected set {
             _hasTarget = value;
             _animator.SetBool(AnimationNames.hasTarget, value);
         }
     }
 
-    public bool LockVelocity
-    {
+    public bool LockVelocity {
         get => _animator.GetBool(AnimationNames.lockVelocity);
         set => _animator.SetBool(AnimationNames.lockVelocity, value);
     }
 
-    protected virtual void Awake()
-    {
+    protected virtual void Awake() {
         _rigidBody = GetComponent<Rigidbody2D>();
         _touchDirections = GetComponent<TouchDirections>();
         _animator = GetComponent<Animator>();
         _damageable = GetComponent<Damageable>();
     }
 
-    void Start()
-    {
+    void Start() {
+        _pivotPointX = transform.localPosition.x;
         _runSpeed *= transform.localScale.x;
         _animator.SetBool(AnimationNames.isMoving, true);
     }
 
-    void Update()
-    {
+    void Update() {
         HasTarget = _attackZone.detectedColliders.Count > 0;
         UpdateImpl();
     }
@@ -81,13 +74,12 @@ public class BaseGroundEnemy : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (LockVelocity)
-        {
+        if (_distanceToCover != 0f) _distanceCovered = Math.Abs(_pivotPointX - gameObject.transform.localPosition.x);
+        if (LockVelocity) {
             _rigidBody.velocity = Vector2.zero;
             return;
         }
-        if (_touchDirections.IsOnGround && _touchDirections.IsOnWall)
-        {
+        if (_touchDirections.IsOnGround && (_touchDirections.IsOnWall || _distanceCovered > _distanceToCover)) {
             ChangeDirection();
         }
         _rigidBody.velocity = new Vector2(CurrXVelocity, _rigidBody.velocity.y);
@@ -97,18 +89,19 @@ public class BaseGroundEnemy : MonoBehaviour {
     protected virtual void FixedUpdateImpl() {
     }
 
-    protected virtual void ChangeDirection()
-    {
+    protected virtual void ChangeDirection() {
         MoveDirection = (MoveDirection == Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT;
+        if (_distanceToCover != 0f) { // if this feature is enabled at all
+            _pivotPointX = gameObject.transform.localPosition.x;
+            _distanceCovered = 0f;
+        }
     }
 
-    public virtual void OnDamageTaken(int damage, Vector2 knockBack)
-    {
+    public virtual void OnDamageTaken(int damage, Vector2 knockBack) {
         _rigidBody.velocity = new Vector2(knockBack.x, _rigidBody.velocity.y + knockBack.y);
     }
 
-    public virtual void CliffDetected()
-    {
+    public virtual void CliffDetected(){
         if (_touchDirections.IsOnGround)
         {
             ChangeDirection();

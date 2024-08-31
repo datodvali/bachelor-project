@@ -12,5 +12,6 @@ public class GameOverScreenScript : MonoBehaviour
 
     public void OnMainMenuHit() {
         SceneManager.LoadScene(_startScreenName);
+        GameEvents.backToStartScreen.Invoke();
     }
 }

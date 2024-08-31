@@ -7,7 +7,7 @@ public class GravityReversalFieldScript : MonoBehaviour
 
     void OnEnable() {
         foreach (GameObject obj in _objectsInField) {
-            if (obj.TryGetComponent<TouchDirections>(out var touchDirections)
+            if (obj != null && obj.TryGetComponent<TouchDirections>(out var touchDirections)
                 && obj.TryGetComponent<Rigidbody2D>(out var rb)) {
                 AddReverseGravityEffects(touchDirections, rb);
             } else {
@@ -18,7 +18,7 @@ public class GravityReversalFieldScript : MonoBehaviour
 
     void OnDisable() {
         foreach (GameObject obj in _objectsInField) {
-            if (obj.TryGetComponent<TouchDirections>(out var touchDirections)
+            if (obj != null && obj.TryGetComponent<TouchDirections>(out var touchDirections)
                 && obj.TryGetComponent<Rigidbody2D>(out var rb)) {
                 RemoveReverseGravityEffects(touchDirections, rb);
             } else {
@@ -28,7 +28,7 @@ public class GravityReversalFieldScript : MonoBehaviour
     }
 
     public void AddObjectToField(GameObject obj) {
-        if (obj.TryGetComponent<TouchDirections>(out var touchDirections)
+        if (obj != null && obj.TryGetComponent<TouchDirections>(out var touchDirections)
             && obj.TryGetComponent<Rigidbody2D>(out var rb)) {
             _objectsInField.Add(obj);
             AddReverseGravityEffects(touchDirections, rb);
@@ -38,7 +38,7 @@ public class GravityReversalFieldScript : MonoBehaviour
     }
 
     public void RemoveObjectFromField(GameObject obj) { 
-        if (_objectsInField.Contains(obj)) {
+        if (obj != null && _objectsInField.Contains(obj)) {
             _objectsInField.Remove(obj);
             RemoveReverseGravityEffects(obj.GetComponent<TouchDirections>(), obj.GetComponent<Rigidbody2D>());
         } else {

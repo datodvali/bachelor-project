@@ -10,6 +10,6 @@ public class PauseScreenScript : MonoBehaviour
 
     public void OnMainMenuHit() {
         SceneManager.LoadScene(_startScreenName);
-        // GameEvents.gameResumed();
+        GameEvents.backToStartScreen.Invoke();
     }
 }
