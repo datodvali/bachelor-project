@@ -14,6 +14,9 @@ public class SelectLevelMenuController : MonoBehaviour {
     private int _lowestLockedLevel = 4;
 
     void OnEnable() {
+        PlayerPrefs.SetInt("Unlocked2", 1);
+        PlayerPrefs.SetInt("Unlocked3", 1);
+        PlayerPrefs.Save();
         _gameCanvas = FindObjectOfType<Canvas>();
         UpdateLevelLocks();
         UpdateLevelBestScores();
