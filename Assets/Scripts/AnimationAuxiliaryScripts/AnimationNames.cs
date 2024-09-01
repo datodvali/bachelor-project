@@ -13,6 +13,7 @@ internal class AnimationNames {
     internal static string isAlive = "isAlive";
     internal static string lockVelocity = "lockVelocity";
     internal static string isClimbing = "isClimbing";
+    internal static string cornerClimb = "cornerClimb";
     internal static string isOnWallHang = "isOnWallHang";
     internal static string isWallSliding = "isWallSliding";
     internal static string explosion = "explosion";

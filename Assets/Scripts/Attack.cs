@@ -11,7 +11,7 @@ public class Attack : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.TryGetComponent<Damageable>(out var damageable)) {
+        if (collision.TryGetComponent<Damageable>(out var damageable) && damageable.IsAlive) {
             Vector2 kb = transform.parent.localScale.x > 0 ? _knockBack : new Vector2(_knockBack.x * -1, _knockBack.y);
             damageable.OnHit(_damage, kb);
         }

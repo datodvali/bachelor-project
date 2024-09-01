@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private bool _isRunning;
     private bool _isClimbing;
     private bool _isOnWallHang;
+    private bool _reachedTop;
     private bool _readyForRun;
     private readonly float _coyoteTime = 0.1f;
     private float _timeInAir; 
@@ -149,6 +150,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update() {
+        CheckReachedWallTop();
         CheckFatalFall();
         CheckCoyoteTime();
         CheckJumpBuffer();
@@ -233,7 +235,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnRangedAttack(InputAction.CallbackContext context) {
-        if (context.started && _numArrows > 0) {
+        if (context.started && _touchDirections.IsOnGround && _numArrows > 0 && !IsOnWallHang) {
             _numArrows--;
             _animator.SetTrigger(AnimationNames.rangedAttack);
             CharacterEvents.numArrowsChanged(_numArrows);
@@ -274,14 +276,28 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTrueDeath() {
-        _rigidBody.bodyType = RigidbodyType2D.Kinematic;
-        LockVelocity = false;
-        _collider.enabled = false;
         Invoke(nameof(InvokeGameOverEvent), 0.8f);
     }
 
     private void InvokeGameOverEvent() {
         GameEvents.gameOver.Invoke();
+    }
+
+    public void CheckReachedWallTop() {
+        if (!_touchDirections.IsOnWall) IsOnWallHang = false;
+        if (_isOnWallHang && _reachedTop && _moveInput.y > 0) {
+            _animator.SetTrigger("cornerClimb");
+            _reachedTop = false;
+            Invoke(nameof(NudgeToTheTop), 0.5f);
+        }
+    }
+
+    private void NudgeToTheTop() {
+        Vector2 vel = _rigidBody.position;
+        Vector2 nudge = new(0.5f, 0.7f);
+        if (!FacingRight) nudge.x *= -1;
+        if (_touchDirections.GravityReversed) nudge.y *= -1;
+        _rigidBody.position = new(vel.x + nudge.x, vel.y + nudge.y);
     }
 
     public void CheckFatalFall() {
@@ -359,6 +375,14 @@ public class PlayerController : MonoBehaviour
                 _platform = null;
             }
         }
+    }
+
+    public void WallDetected() {
+        _reachedTop = false;
+    }
+
+    public void OnWallNoLongerDetected() {
+        if (_touchDirections.IsOnWall) _reachedTop = true;
     }
 
     public void CreateDust() {

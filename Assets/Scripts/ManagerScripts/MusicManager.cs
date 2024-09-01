@@ -70,6 +70,7 @@ public class MusicManager : MonoBehaviour
         _introMusic.Stop();
         _loopedMusic.Stop();
         _gameOverMusic.Stop();
+        _gameCompleteMusic.Stop();
         _startScreenMusicManager.Play();
     }
 

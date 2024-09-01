@@ -81,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 33897744, guid: ec202f492212cc548b88af700d3f01d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -197,6 +197,7 @@ MonoBehaviour:
   _isOnWall: 0
   _isOnCeiling: 0
   _isOnPlatform: 0
+  _fallDeathDistance: 0
   _contactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -279,6 +280,7 @@ MonoBehaviour:
   _runSpeed: 4
   _attackZone: {fileID: 8679647624828214091}
   _groundZone: {fileID: 5056154603084054586}
+  _distanceToCover: 0
 --- !u!1 &111038659407488629
 GameObject:
   m_ObjectHideFlags: 0

@@ -386,6 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3309f238f3d509642b31b11f7d470b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gravityReversed: 0
   _groundDistance: 0.05
   _wallDistance: 0.2
   _ceilingDistance: 0.05
@@ -394,6 +395,7 @@ MonoBehaviour:
   _isOnWall: 0
   _isOnCeiling: 0
   _isOnPlatform: 0
+  _fallDeathDistance: 0
   _contactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -476,6 +478,7 @@ MonoBehaviour:
   _runSpeed: 5
   _attackZone: {fileID: 6043138670784232200}
   _groundZone: {fileID: 9097224360169152476}
+  _distanceToCover: 0
 --- !u!1 &4723574286163695662
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,8 +557,8 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 1.9361343, y: 1.1493508}
-      - {x: 0.6433642, y: 0.84167516}
-      - {x: 0.84746265, y: -0.5716542}
+      - {x: -0.80792975, y: 0.48689973}
+      - {x: -0.78931713, y: 0.08951771}
       - {x: 2.40899, y: -1.0174707}
       - {x: 2.6299453, y: 0.0689905}
   m_UseDelaunayMesh: 0
