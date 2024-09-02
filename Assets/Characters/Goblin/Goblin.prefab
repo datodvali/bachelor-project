@@ -84,7 +84,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -5436124, guid: 4940113d6045f0245a372e4b9684e3a9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3309f238f3d509642b31b11f7d470b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gravityReversed: 0
   _groundDistance: 0.05
   _wallDistance: 0.2
   _ceilingDistance: 0.05
@@ -199,6 +200,7 @@ MonoBehaviour:
   _isOnWall: 0
   _isOnCeiling: 0
   _isOnPlatform: 0
+  _fallDeathDistance: 0
   _contactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -295,6 +297,7 @@ MonoBehaviour:
   _runSpeed: 6
   _attackZone: {fileID: 8552721597088903896}
   _groundZone: {fileID: 8540390748349140477}
+  _distanceToCover: 0
   _rangedAttackZone: {fileID: 1569870176176021884}
 --- !u!1 &672428150706645806
 GameObject:
@@ -387,6 +390,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noCollidersRemaining:
+    m_PersistentCalls:
+      m_Calls: []
+  collidersRemaining:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &4461871077371737778
@@ -494,6 +500,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  collidersRemaining:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8880440335975665950
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,6 +594,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noCollidersRemaining:
+    m_PersistentCalls:
+      m_Calls: []
+  collidersRemaining:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &9000064070366480800

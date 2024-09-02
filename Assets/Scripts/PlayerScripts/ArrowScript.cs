@@ -21,7 +21,12 @@ public class ArrowScript : MonoBehaviour
         if (collider.TryGetComponent<Damageable>(out var damageable)) {
             Vector2 kb = transform.localScale.x > 0 ? _knockBack : new Vector2(_knockBack.x * -1, _knockBack.y);
             damageable.OnHit(_damage, kb);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Ground")
+        || collider.gameObject.layer == LayerMask.NameToLayer("Platform") 
+        || collider.gameObject.layer == LayerMask.NameToLayer("Trap")) {
+            Destroy(gameObject);
+        }
     }
 }

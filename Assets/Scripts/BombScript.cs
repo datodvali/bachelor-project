@@ -1,9 +1,8 @@
-using TMPro;
 using UnityEngine;
 
 public class BombScript : MonoBehaviour
 {
-    [SerializeField] private Vector2 _moveVelocity = new(6f, 4f);
+    private Vector2 _moveVelocity = new(23f, 4f);
     private Animator _animator;
     private Rigidbody2D _rb;
     private Collider2D _collider;
